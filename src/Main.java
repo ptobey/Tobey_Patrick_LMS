@@ -1,19 +1,20 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
     private static List<Book> bookList = new ArrayList<>();
-    private static Set<Integer> exisitingIds = new HashSet<>();
-
+    private static Set<String> exisitingIds = new HashSet<>();
     private static Scanner inputScanner = new Scanner(System.in);
     private static int idCounter = 0;
 
     public static int incrementIdCounter() {
         return ++idCounter;
     }
-    public static Set<Integer> getExistingIds() {
+    public static Set<String> getExistingIds() {
         return exisitingIds;
     }
-    public static void addExistingId(int id) {
+    public static void addExistingId(String id) {
         exisitingIds.add(id);
     }
 
@@ -22,13 +23,23 @@ public class Main {
         startLMS();
     }
     private static void initializeBookList() {
-        Book b1 = new Book( "The Great Alone", "Tawnia");
-        Book b2 = new Book( "I spy", "Me");
+        try {
+            Scanner fileScanner = new Scanner(new File(".\\src\\books.txt"));
+            while(fileScanner.hasNext()) {
+                String fileLine = fileScanner.nextLine();
+                String[] bookRecords = fileLine.split(",");
 
-       // List<Book> bookList = new ArrayList<>();
+                String id = bookRecords[0];
+                String title = bookRecords[1];
+                String author = bookRecords[2];
 
-        bookList.add(b1);
-        bookList.add(b2);
+                bookList.add(new Book(id, title, author));
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Error: The book collection text file does not exist\n");
+            e.printStackTrace();
+        }
     }
     public static void listBooks() {
         System.out.println("Here's the full book list:\n");
@@ -42,21 +53,20 @@ public class Main {
 
     public static void removeBook() {
         while(true) {
-            System.out.println("Please enter the number of the book that you want to remove");
+            System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
             String removeId = inputScanner.nextLine();
-            try {
+            if(Objects.equals("0", removeId)) {
+                System.out.println("You successfully cancelled removing a book!\n");
+                return;
+            }
                 for (Book book : bookList) {
-                    if (book.getId() == Integer.parseInt(removeId)) {
+                    if (Objects.equals(book.getId(), removeId)) {
                         bookList.remove(book);
                         System.out.println(book.getTitle() + " by " + book.getAuthor() +" has been successfully removed from the LMS!\n");
                         return;
                     }
                 }
-                System.out.println("Error: Invalid book number!\n");
-            }
-            catch(NumberFormatException e) {
-                System.out.println("Error: The user did not provide a number!\n");
-            }
+            System.out.println("Error: Invalid book number!\n");
         }
     }
 
@@ -65,8 +75,8 @@ public class Main {
         String title = inputScanner.nextLine();
         System.out.println("Please enter the name of the author of the book you want to add");
         String author = inputScanner.nextLine();
-        Book newBook = new Book( title, author);
-        bookList.add(newBook);
+
+        bookList.add(new Book(title, author));
 
         System.out.println(title+" by "+author+" has been successfully added to the LMS!\n");
         }
@@ -82,7 +92,6 @@ public class Main {
             String userInput = inputScanner.nextLine();
 
             switch(userInput) {
-
                 case "1": {
                     addBook();
                     break;
@@ -104,12 +113,7 @@ public class Main {
                     System.out.println("Error: Unknown option");
                     System.out.println("Please try again!\n");
                 }
-
-
-
             }
-
         }
-
     }
 }

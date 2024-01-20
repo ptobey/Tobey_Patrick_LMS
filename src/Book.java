@@ -1,18 +1,18 @@
 public class Book {
 
-    private int id;
+    private String id;
     private String title;
     private String author;
 
 
     public Book( String title, String author) {
-        int newId;
+        String newId;
 
         this.title = title;
         this.author = author;
 
         do {
-            newId = Main.incrementIdCounter();
+            newId = String.valueOf(Main.incrementIdCounter());
             System.out.println();
         } while(Main.getExistingIds().contains(newId));
 
@@ -20,7 +20,14 @@ public class Book {
         Main.addExistingId(newId);
     }
 
-    public int getId() {
+    public Book( String id, String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.id = id;
+        Main.addExistingId(id);
+    }
+
+    public String getId() {
         return this.id;
     }
     public String getTitle() {
