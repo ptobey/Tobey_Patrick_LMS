@@ -11,9 +11,9 @@ All three properties have getters but can only be set by the constructor.
 
  */
 public class Book {
-    private String id;
-    private String title;
-    private String author;
+    private final String id;
+    private final String title;
+    private final String author;
 
     /*
     The constructor used if an ID needs to be generated for the book

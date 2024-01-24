@@ -17,9 +17,9 @@ The goal of this LMS application is to allow users to add, remove, and see books
  Entries in the CSV file will be added to the book list when the program starts.
  */
 public class Main {
-    private static List<Book> bookList = new ArrayList<>();
-    private static Set<String> exisitingIds = new HashSet<>();
-    private static Scanner inputScanner = new Scanner(System.in);
+    private static final List<Book> bookList = new ArrayList<>();
+    private static final Set<String> existingIds = new HashSet<>();
+    private static final Scanner inputScanner = new Scanner(System.in);
     private static int idCounter = 0;
 
     /*
@@ -33,7 +33,7 @@ public class Main {
         return ++idCounter;
     }
     public static Set<String> getExistingIds() {
-        return exisitingIds;
+        return existingIds;
     }
 
     /*
@@ -44,7 +44,7 @@ public class Main {
     This method adds an ID to the existing IDs list.
     */
     public static void addExistingId(String id) {
-        exisitingIds.add(id);
+        existingIds.add(id);
     }
 
     /*
@@ -55,7 +55,7 @@ public class Main {
     This method removes an ID from the existing IDs list.
     */
     public static void removeExistingId(String id) {
-        exisitingIds.remove(id);
+        existingIds.remove(id);
     }
 
     /*
@@ -135,7 +135,7 @@ public class Main {
                 System.out.println("You successfully cancelled removing a book!\n");
                 return;
             }
-            else if(exisitingIds.contains(removeId)) {
+            else if(existingIds.contains(removeId)) {
                 for (Book book : bookList) {
                     if (removeId.equals(book.getId())) {
                         bookList.remove(book);
@@ -186,25 +186,16 @@ public class Main {
 
             String userInput = inputScanner.nextLine();
 
-            switch(userInput) {
-                case "1": {
-                    addBook();
-                    break;
-                }
-                case "2": {
-                    removeBook();
-                    break;
-                }
-                case "3": {
-                    listBooks();
-                    break;
-                }
-                case "4": {
+            switch (userInput) {
+                case "1" -> addBook();
+                case "2" -> removeBook();
+                case "3" -> listBooks();
+                case "4" -> {
                     System.out.println("Thank you for using Patrick's LMS");
                     System.out.println("Good bye!");
                     return;
                 }
-                default: {
+                default -> {
                     System.out.println("Error: Unknown option");
                     System.out.println("Please try again!\n");
                 }
