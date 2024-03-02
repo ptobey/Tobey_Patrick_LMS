@@ -32,6 +32,7 @@ public class Main {
     public static int incrementIdCounter() {
         return ++idCounter;
     }
+
     public static Set<String> getExistingIds() {
         return existingIds;
     }
@@ -81,26 +82,24 @@ public class Main {
         int lineNumber = 0;
         try {
             Scanner fileScanner = new Scanner(new File(".\\src\\books.txt"));
-            while(fileScanner.hasNext()) {
+            while (fileScanner.hasNext()) {
                 lineNumber++;
                 String fileLine = fileScanner.nextLine();
                 String[] bookRecords = fileLine.split(",");
 
-                if(bookRecords.length == 3) {
+                if (bookRecords.length == 3) {
                     String id = bookRecords[0];
                     String title = bookRecords[1];
                     String author = bookRecords[2];
 
                     bookList.add(new Book(id, title, author));
-                }
-                else {
-                    System.out.println("Error: The entry on line "+lineNumber+" of the book collection is in an invalid format!\n");
+                } else {
+                    System.out.println("Error: The entry on line " + lineNumber + " of the book collection is in an invalid format!\n");
                 }
             }
             fileScanner.close();
-        }
-        catch (FileNotFoundException e) {
-                System.out.println("Error: The book collection text file does not exist!\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: The book collection text file does not exist!\n");
         }
     }
 
@@ -113,9 +112,13 @@ public class Main {
     */
     private static void listBooks() {
         System.out.println("Here's the full book list:\n");
-        for(Book book : bookList) {
-            System.out.println("Book #"+book.getId());
-            System.out.println(book.getTitle()+" by "+book.getAuthor());
+        for (Book book : bookList) {
+            System.out.println("Book #" + book.getId());
+            System.out.println(book.getTitle() + " by " + book.getAuthor());
+            System.out.println("Status: " + book.getStatus());
+            if (Objects.equals(book.getStatus(), "Checked Out")) {
+                System.out.println("Due Date: " + book.getDueDate());
+            }
             System.out.println();
         }
     }
@@ -128,24 +131,64 @@ public class Main {
     This method prompts the user to input a book ID, and it removes the specified book from the book list.
     */
     private static void removeBook() {
-        while(true) {
-            System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
-            String removeId = inputScanner.nextLine();
-            if(removeId.equals("0")) {
-                System.out.println("You successfully cancelled removing a book!\n");
-                return;
+
+        String selection = "";
+
+
+        while (true) {
+            if (!selection.equals("1") && !selection.equals("2")) {
+                System.out.println("Please enter 1 if you want to remove a book by its title");
+                System.out.println("Please enter 2 if you want to remove a book by its id");
+                System.out.println("Please enter 0 if you want to cancel");
+
+                selection = inputScanner.nextLine();
             }
-            else if(existingIds.contains(removeId)) {
-                for (Book book : bookList) {
-                    if (removeId.equals(book.getId())) {
-                        bookList.remove(book);
-                        removeExistingId(removeId);
-                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
+
+            switch (selection) {
+                case "1" -> {
+                    System.out.println("Please enter the title of the book that you want to remove or enter 0 to cancel");
+                    String title = inputScanner.nextLine();
+                    if (title.equals("0")) {
+                        System.out.println("You successfully cancelled removing a book!\n");
                         return;
+                    } else {
+                        for (Book book : bookList) {
+                            if (title.equals(book.getTitle())) {
+                                bookList.remove(book);
+                                removeExistingId(book.getId());
+                                System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
+                                listBooks();
+                                return;
+                            }
+                        }
                     }
+                    System.out.println("Error: Invalid book title!\n");
                 }
+                case "2" -> {
+                    System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
+                    String removeId = inputScanner.nextLine();
+                    if (removeId.equals("0")) {
+                        System.out.println("You successfully cancelled removing a book!\n");
+                        return;
+                    } else if (existingIds.contains(removeId)) {
+                        for (Book book : bookList) {
+                            if (removeId.equals(book.getId())) {
+                                bookList.remove(book);
+                                removeExistingId(removeId);
+                                System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
+                                listBooks();
+                                return;
+                            }
+                        }
+                    }
+                    System.out.println("Error: Invalid book number!\n");
+                }
+                case "0" -> {
+                    System.out.println("You successfully cancelled removing a book!\n");
+                    return;
+                }
+                default -> System.out.println("Error: Invalid selection!\n");
             }
-            System.out.println("Error: Invalid book number!\n");
         }
     }
 
@@ -165,8 +208,53 @@ public class Main {
 
         bookList.add(new Book(title, author));
 
-        System.out.println(title+" by "+author+" has been successfully added to the LMS!\n");
+        System.out.println(title + " by " + author + " has been successfully added to the LMS!\n");
     }
+
+    private static void checkInBook() {
+        while (true) {
+            System.out.println("Please enter the title of the book you want to check in or enter 0 to cancel");
+            String title = inputScanner.nextLine();
+
+            if (title.equals("0")) {
+                System.out.println("You successfully cancelled checking in a book!\n");
+                return;
+            } else {
+                for (Book book : bookList) {
+                    if (title.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
+                        book.checkIn();
+                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
+                        listBooks();
+                        return;
+                    }
+                }
+                System.out.println("Error: That book is already checked in or does not exist in the LMS");
+            }
+        }
+    }
+
+    private static void checkOutBook() {
+        while (true) {
+            System.out.println("Please enter the title of the book you want to check out or enter 0 to cancel");
+            String title = inputScanner.nextLine();
+
+            if (title.equals("0")) {
+                System.out.println("You successfully cancelled checking out a book!\n");
+                return;
+            } else {
+                for (Book book : bookList) {
+                    if (title.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
+                        book.checkOut();
+                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
+                        listBooks();
+                        return;
+                    }
+                }
+                System.out.println("Error: That book is already checked out or does not exist in the LMS");
+            }
+        }
+    }
+
 
     /*
     Method Name: startLMS
@@ -177,12 +265,14 @@ public class Main {
     */
     private static void startLMS() {
         System.out.println("Welcome to Patrick's LMS!");
-        while(true) {
+        while (true) {
             System.out.println("Please select an option by replying with its associated number:");
             System.out.println("    1. Add a book to the LMS");
             System.out.println("    2. Remove a book from the LMS");
             System.out.println("    3. List all books in the LMS");
-            System.out.println("    4. Leave the LMS");
+            System.out.println("    4. Check in a book");
+            System.out.println("    5. Check out a book");
+            System.out.println("    6. Leave the LMS");
 
             String userInput = inputScanner.nextLine();
 
@@ -190,7 +280,9 @@ public class Main {
                 case "1" -> addBook();
                 case "2" -> removeBook();
                 case "3" -> listBooks();
-                case "4" -> {
+                case "4" -> checkInBook();
+                case "5" -> checkOutBook();
+                case "6" -> {
                     System.out.println("Thank you for using Patrick's LMS");
                     System.out.println("Good bye!");
                     return;

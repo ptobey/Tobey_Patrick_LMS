@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.Objects;
+
 /*
 Name: Patrick Tobey
 Course: Software Development 1
@@ -13,6 +16,8 @@ public class Book {
     private final String id;
     private final String title;
     private final String author;
+    private String status;
+    private LocalDate dueDate;
 
     /*
     The constructor used if an ID needs to be generated for the book
@@ -29,6 +34,8 @@ public class Book {
         } while (Main.getExistingIds().contains(newId));
 
         this.id = newId;
+        this.dueDate = null;
+        this.status = "Checked In";
         Main.addExistingId(newId);
     }
 
@@ -39,6 +46,8 @@ public class Book {
         this.title = title;
         this.author = author;
         this.id = id;
+        this.dueDate = null;
+        this.status = "Checked In";
         Main.addExistingId(id);
     }
 
@@ -52,5 +61,31 @@ public class Book {
 
     public String getAuthor() {
         return this.author;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public LocalDate getDueDate() {
+        return this.dueDate;
+    }
+
+    public void checkIn() {
+        if (Objects.equals(status, "Checked Out")) {
+            status = "Checked In";
+            dueDate = null;
+        } else {
+            System.out.println("There was an unexpected error checking in that book. Please contact the LMS developer if you receive this error!");
+        }
+    }
+
+    public void checkOut() {
+        if (Objects.equals(status, "Checked In")) {
+            status = "Checked Out";
+            dueDate = LocalDate.now().plusWeeks(2);
+        } else {
+            System.out.println("There was an unexpected error checking out that book. Please contact the LMS developer if you receive this error!");
+        }
     }
 }
