@@ -5,59 +5,18 @@ import java.util.*;
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 1/28/2024
+Date 3/3/2024
 
 Class Name: Main
 
 This class contains the Main method of the LMS application and runs all LMS processes.
-This class initializes the book list and starts, runs, and closes the RMS according to user inputs.
+This class starts, runs, and closes the RMS according to user inputs.
 
-The goal of this LMS application is to allow users to add, remove, and see books in the RMS book collection.
- Users will also be able to provide a "books.txt" CSV file with a positive integer ID, book title, and book author.
- Entries in the CSV file will be added to the book list when the program starts.
+The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
+Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main {
-    private static final List<Book> bookList = new ArrayList<>();
-    private static final Set<String> existingIds = new HashSet<>();
     private static final Scanner inputScanner = new Scanner(System.in);
-    private static int idCounter = 0;
-
-    /*
-    Method Name: incrementIdCounter
-    Arguments: none
-    Returns: Incremented ID counter integer
-
-    This method increments the ID counter and returns the new integer.
-     */
-    public static int incrementIdCounter() {
-        return ++idCounter;
-    }
-
-    public static Set<String> getExistingIds() {
-        return existingIds;
-    }
-
-    /*
-    Method Name: addExistingId
-    Arguments: ID string
-    Returns: void
-
-    This method adds an ID to the existing IDs list.
-    */
-    public static void addExistingId(String id) {
-        existingIds.add(id);
-    }
-
-    /*
-    Method Name: removeExistingId
-    Arguments: ID string
-    Returns: void
-
-    This method removes an ID from the existing IDs list.
-    */
-    public static void removeExistingId(String id) {
-        existingIds.remove(id);
-    }
 
     /*
     Method Name: main
@@ -79,7 +38,7 @@ public class Main {
     */
     private static void listBooks() {
         System.out.println("Here's the full book list:\n");
-        for (Book book : bookList) {
+        for (Book book : BookLibrary.getBookList()) {
             book.print();
         }
     }
@@ -89,7 +48,7 @@ public class Main {
     Arguments: none
     Returns: void
 
-    This method prompts the user to input a book ID, and it removes the specified book from the book list.
+    This method prompts the user to choose whether they want to remove a book by its title or id, and calls the appropriate method.
     */
     private static void removeBook() {
 
@@ -98,9 +57,10 @@ public class Main {
 
         while (loop) {
             if (!selection.equals("1") && !selection.equals("2")) {
-                System.out.println("Please enter 1 if you want to remove a book by its title");
-                System.out.println("Please enter 2 if you want to remove a book by its id");
-                System.out.println("Please enter 0 if you want to cancel");
+                System.out.println("Please select an option by replying with its associated number:");
+                System.out.println("    1. Remove a book by its title");
+                System.out.println("    2. Remove a book by its number");
+                System.out.println("    0. Cancel");
 
                 selection = inputScanner.nextLine();
             }
@@ -118,15 +78,15 @@ public class Main {
     }
 
     /*
-    Method Name: addBook
+    Method Name: addBooks
     Arguments: none
     Returns: void
 
-    This method prompts the user to enter a title and author, and it creates a new book with that information.
-    It then adds the new book to the book list.
+    This method prompts the user to enter a file path to a CSV file, and it creates new books with the CSV information.
+    It then adds the new books to the book list.
     */
-    private static void addBook() {
-        System.out.println("Please enter the path of the text file that you want to add books from");
+    private static void addBooks() {
+        System.out.println("Please enter the path of the CSV file that you want to add books from");
         String path = inputScanner.nextLine();
         int lineNumber = 0;
         try {
@@ -141,10 +101,10 @@ public class Main {
                     String title = bookRecords[1];
                     String author = bookRecords[2];
 
-                    if (getExistingIds().contains(id)) {
-                        bookList.add(new Book(title, author));
+                    if (BookLibrary.getExistingIds().contains(id)) {
+                        BookLibrary.addBook(new Book(title, author));
                     } else {
-                        bookList.add(new Book(id, title, author));
+                        BookLibrary.addBook(new Book(id, title, author));
                     }
                 } else {
                     System.out.println("Error: The entry on line " + lineNumber + " of the book collection is in an invalid format!\n");
@@ -158,6 +118,14 @@ public class Main {
         }
     }
 
+    /*
+    Method Name: checkInBook
+    Arguments: none
+    Returns: void
+
+    This method prompts the user to enter the title of the book they want to check in.
+    It then checks the specified book in, or asks for the book number if there are multiple books with the same title and checks that book in.
+    */
     private static void checkInBook() {
         while (true) {
             System.out.println("Please enter the title of the book you want to check in or enter 0 to cancel");
@@ -170,7 +138,7 @@ public class Main {
                 ArrayList<Book> checkInList = getBooksByTitle(title);
 
                 if (checkInList.size() == 1) {
-                    for (Book book : bookList) {
+                    for (Book book : BookLibrary.getBookList()) {
                         if (title.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
                             book.checkIn();
                             System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
@@ -188,8 +156,8 @@ public class Main {
                     if (checkInId.equals("0")) {
                         System.out.println("You successfully cancelled checking in a book!\n");
                         return;
-                    } else if (existingIds.contains(checkInId)) {
-                        for (Book book : bookList) {
+                    } else if (BookLibrary.getExistingIds().contains(checkInId)) {
+                        for (Book book : BookLibrary.getBookList()) {
                             if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
                                 book.checkIn();
                                 System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
@@ -204,6 +172,14 @@ public class Main {
         }
     }
 
+    /*
+    Method Name: checkOutBook
+    Arguments: none
+    Returns: void
+
+    This method prompts the user to enter the title of the book they want to check out.
+    It then checks the specified book out, or asks for the book number if there are multiple books with the same title and checks that book out.
+    */
     private static void checkOutBook() {
         while (true) {
             System.out.println("Please enter the title of the book you want to check out or enter 0 to cancel");
@@ -216,7 +192,7 @@ public class Main {
                 ArrayList<Book> checkOutList = getBooksByTitle(title);
 
                 if (checkOutList.size() == 1) {
-                    for (Book book : bookList) {
+                    for (Book book : BookLibrary.getBookList()) {
                         if (title.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
                             book.checkOut();
                             System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
@@ -234,8 +210,8 @@ public class Main {
                     if (checkInId.equals("0")) {
                         System.out.println("You successfully cancelled checking out a book!\n");
                         return;
-                    } else if (existingIds.contains(checkInId)) {
-                        for (Book book : bookList) {
+                    } else if (BookLibrary.getExistingIds().contains(checkInId)) {
+                        for (Book book : BookLibrary.getBookList()) {
                             if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked In")) {
                                 book.checkOut();
                                 System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully check out!\n");
@@ -250,17 +226,24 @@ public class Main {
         }
     }
 
+    /*
+    Method Name: removeBookById
+    Arguments: none
+    Returns: void
+
+    This method prompts the user to input a book ID, and it removes the specified book from the book list.
+    */
     private static boolean removeBookById() {
         System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
         String removeId = inputScanner.nextLine();
         if (removeId.equals("0")) {
             System.out.println("You successfully cancelled removing a book!\n");
             return false;
-        } else if (existingIds.contains(removeId)) {
-            for (Book book : bookList) {
+        } else if (BookLibrary.getExistingIds().contains(removeId)) {
+            for (Book book : BookLibrary.getBookList()) {
                 if (removeId.equals(book.getId())) {
-                    bookList.remove(book);
-                    removeExistingId(removeId);
+                    BookLibrary.removeBook(book);
+                    BookLibrary.removeExistingId(removeId);
                     System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
                     listBooks();
                     return false;
@@ -271,6 +254,13 @@ public class Main {
         return true;
     }
 
+    /*
+    Method Name: removeBookById
+    Arguments: none
+    Returns: void
+
+    This method prompts the user to input a book title, and it removes the specified book from the book list.
+    */
     private static boolean removeBookByTitle() {
         System.out.println("Please enter the title of the book that you want to remove or enter 0 to cancel");
         String title = inputScanner.nextLine();
@@ -280,10 +270,10 @@ public class Main {
         } else {
             ArrayList<Book> removeList = getBooksByTitle(title);
             if (removeList.size() == 1) {
-                for (Book book : bookList) {
+                for (Book book : BookLibrary.getBookList()) {
                     if (title.equals(book.getTitle())) {
-                        bookList.remove(book);
-                        removeExistingId(book.getId());
+                        BookLibrary.removeBook(book);
+                        BookLibrary.removeExistingId(book.getId());
                         System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
                         listBooks();
                         return false;
@@ -302,10 +292,17 @@ public class Main {
         return true;
     }
 
+    /*
+    Method Name: getBooksByTitle
+    Arguments: title String
+    Returns: ArrayList<Book>
+
+    This method returns all books that have the same book title as the title argument.
+    */
     public static ArrayList<Book> getBooksByTitle(String title) {
         ArrayList<Book> list = new ArrayList<>();
 
-        for (Book book : bookList) {
+        for (Book book : BookLibrary.getBookList()) {
             if (title.equals(book.getTitle())) {
                 list.add(book);
             }
@@ -324,7 +321,7 @@ public class Main {
         System.out.println("Welcome to Patrick's LMS!");
         while (true) {
             System.out.println("Please select an option by replying with its associated number:");
-            System.out.println("    1. Add a book to the LMS");
+            System.out.println("    1. Add books to the LMS");
             System.out.println("    2. Remove a book from the LMS");
             System.out.println("    3. List all books in the LMS");
             System.out.println("    4. Check in a book");
@@ -334,7 +331,7 @@ public class Main {
             String userInput = inputScanner.nextLine();
 
             switch (userInput) {
-                case "1" -> addBook();
+                case "1" -> addBooks();
                 case "2" -> removeBook();
                 case "3" -> listBooks();
                 case "4" -> checkInBook();

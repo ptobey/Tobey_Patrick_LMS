@@ -4,13 +4,14 @@ import java.util.Objects;
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 1/28/2024
+Date 3/3/2024
 
 Class Name: Book
 
 This class represents a single book.
-This class has three properties: id, title, and author.
-All three properties have getters but can only be set by the constructor.
+This class has five properties: id, title, author, status, and dueDate.
+All five properties have getters, but only the status and dueDate has setters.
+
  */
 public class Book {
     private final String id;
@@ -29,14 +30,14 @@ public class Book {
         this.author = author;
 
         do {
-            newId = String.valueOf(Main.incrementIdCounter());
+            newId = String.valueOf(BookLibrary.incrementIdCounter());
             System.out.println();
-        } while (Main.getExistingIds().contains(newId));
+        } while (BookLibrary.getExistingIds().contains(newId));
 
         this.id = newId;
         this.dueDate = null;
         this.status = "Checked In";
-        Main.addExistingId(newId);
+        BookLibrary.addExistingId(newId);
     }
 
     /*
@@ -48,7 +49,7 @@ public class Book {
         this.id = id;
         this.dueDate = null;
         this.status = "Checked In";
-        Main.addExistingId(id);
+        BookLibrary.addExistingId(id);
     }
 
     public String getId() {
@@ -71,6 +72,13 @@ public class Book {
         return this.dueDate;
     }
 
+    /*
+    Method Name: checkIn
+    Arguments: none
+    Returns: void
+
+    This method processes the checking in of the book by changing its status and resetting its due date.
+    */
     public void checkIn() {
         if (Objects.equals(status, "Checked Out")) {
             status = "Checked In";
@@ -80,15 +88,29 @@ public class Book {
         }
     }
 
+    /*
+    Method Name: checkOut
+    Arguments: none
+    Returns: void
+
+    This method processes the checking out of the book by changing its status and setting its due date.
+    */
     public void checkOut() {
         if (Objects.equals(status, "Checked In")) {
             status = "Checked Out";
-            dueDate = LocalDate.now().plusWeeks(2);
+            dueDate = LocalDate.now().plusWeeks(4);
         } else {
             System.out.println("There was an unexpected error checking out that book. Please contact the LMS developer if you receive this error!");
         }
     }
 
+    /*
+    Method Name: print
+    Arguments: none
+    Returns: void
+
+    This method prints the book's information to the console.
+    */
     public void print() {
         System.out.println("Book #" + id);
         System.out.println(title + " by " + author);

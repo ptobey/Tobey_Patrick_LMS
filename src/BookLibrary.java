@@ -1,38 +1,82 @@
-import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 1/28/2024
+Date 3/3/2024
 
-Class Name: Book
+Class Name: BookLibrary
 
-This class represents a single book.
-This class has three properties: id, title, and author.
-All three properties have getters but can only be set by the constructor.
+This class represents the book library information.
+This class has three properties: bookList, existingIds, and idCounter.
+All three properties have getters and methods to alter them.
+The idCounter getter also increments it.
  */
 public class BookLibrary {
-    private final String id;
-    private final String title;
-    private final String author;
-    private String status;
-    private LocalDate dueDate;
+    private static final ArrayList<Book> bookList = new ArrayList<>();
+    private static final Set<String> existingIds = new HashSet<>();
+    private static int idCounter = 0;
 
-    public BookLibrary(String title, String author) {
-        String newId;
+    /*
+    Method Name: incrementIdCounter
+    Arguments: none
+    Returns: Incremented ID counter integer
 
-        this.title = title;
-        this.author = author;
+    This method increments the ID counter and returns the new integer.
+    */
+    public static int incrementIdCounter() {
+        return ++idCounter;
+    }
 
-        do {
-            newId = String.valueOf(Main.incrementIdCounter());
-            System.out.println();
-        } while (Main.getExistingIds().contains(newId));
+    public static Set<String> getExistingIds() {
+        return existingIds;
+    }
 
-        this.id = newId;
-        this.dueDate = null;
-        this.status = "Checked In";
-        Main.addExistingId(newId);
+    /*
+    Method Name: addExistingId
+    Arguments: ID string
+    Returns: void
+
+    This method adds an ID to the existing IDs list.
+    */
+    public static void addExistingId(String id) {
+        existingIds.add(id);
+    }
+
+    /*
+    Method Name: removeExistingId
+    Arguments: ID string
+    Returns: void
+
+    This method removes an ID from the existing IDs list.
+    */
+    public static void removeExistingId(String id) {
+        existingIds.remove(id);
+    }
+
+    public static ArrayList<Book> getBookList() {
+        return bookList;
+    }
+
+    /*
+    Method Name: addBook
+    Arguments: book string
+    Returns: void
+
+    This method adds a book to the book list.
+    */
+    public static void addBook(Book book) {
+        bookList.add(book);
+    }
+
+    /*
+    Method Name: removeBook
+    Arguments: book string
+    Returns: void
+
+    This method removes a book from the book list.
+    */
+    public static void removeBook(Book book) {
+        bookList.remove(book);
     }
 }
