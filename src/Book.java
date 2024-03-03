@@ -88,4 +88,14 @@ public class Book {
             System.out.println("There was an unexpected error checking out that book. Please contact the LMS developer if you receive this error!");
         }
     }
+
+    public void print() {
+        System.out.println("Book #" + id);
+        System.out.println(title + " by " + author);
+        System.out.println("Status: " + status);
+        if (Objects.equals(status, "Checked Out")) {
+            System.out.println("Due Date: " + dueDate);
+        }
+        System.out.println();
+    }
 }
