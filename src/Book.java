@@ -4,7 +4,7 @@ import java.util.Objects;
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 3/3/2024
+Date 3/10/2024
 
 Class Name: Book
 
