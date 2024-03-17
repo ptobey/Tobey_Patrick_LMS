@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScreenController">
+   <children>
+      <Label layoutX="150.0" layoutY="24.0" prefHeight="17.0" prefWidth="142.0" text="Welcome to Patrick's LMS" textAlignment="CENTER" />
+      <Button layoutX="160.0" layoutY="48.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="25.0" prefWidth="122.0" text="Add Books" />
+      <Button layoutX="160.0" layoutY="79.0" mnemonicParsing="false" text="Check In/Out Books" />
+      <Button layoutX="160.0" layoutY="111.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Remove Books" />
+      <TableView fx:id="table" layoutX="25.0" layoutY="184.0" prefHeight="205.0" prefWidth="392.0">
+         <columns>
+            <TableColumn fx:id="tableID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tableTitle" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="tableAuthor" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="tableStatus" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="tableDueDate" prefWidth="75.0" text="Due Date" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

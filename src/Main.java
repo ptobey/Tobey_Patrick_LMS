@@ -1,5 +1,11 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /*
@@ -15,7 +21,7 @@ This class starts, runs, and closes the RMS according to user inputs.
 The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
 Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
-public class Main {
+public class Main extends Application {
     private static final Scanner inputScanner = new Scanner(System.in);
 
     /*
@@ -25,9 +31,7 @@ public class Main {
 
     This method is the start point of the program and runs the necessary methods to initialize and start the LMS.
     */
-    public static void main(String[] args) {
-        startLMS();
-    }
+
 
     /*
     Method Name: listBooks
@@ -347,5 +351,13 @@ public class Main {
                 }
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        ScreenController.setStage(stage);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-screen.fxml")));
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
