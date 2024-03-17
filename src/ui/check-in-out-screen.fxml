@@ -27,15 +27,15 @@
       <VBox alignment="TOP_CENTER" layoutX="77.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="14.0">
          <children>
             <Label prefHeight="17.0" prefWidth="157.0" text="Add books by choosing a file" textAlignment="CENTER" />
-            <TextField fx:id="path" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onPathChange" prefHeight="25.0" prefWidth="266.0">
+            <TextField fx:id="path" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onPathChange" prefHeight="25.0" prefWidth="266.0" promptText="Title">
                <VBox.margin>
                   <Insets bottom="-10.0" top="10.0" />
                </VBox.margin>
             </TextField>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="266.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#fileChooserButtonClicked" prefHeight="25.0" prefWidth="128.0" text="File Chooser" />
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#addBooksButtonClicked" prefHeight="25.0" prefWidth="122.0" text="Add Books" />
+                  <Button mnemonicParsing="false" onAction="#checkInButtonClicked" prefHeight="25.0" prefWidth="128.0" text="Check In Book" />
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkOutButtonClicked" prefHeight="25.0" prefWidth="122.0" text="Check Out Book" />
                </children>
                <VBox.margin>
                   <Insets />

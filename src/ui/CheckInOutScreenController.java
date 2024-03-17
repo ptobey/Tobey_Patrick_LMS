@@ -51,7 +51,7 @@ public class CheckInOutScreenController implements Initializable {
 
 
     @FXML
-    void fileChooserButtonClicked(ActionEvent event) {
+    void checkInButtonClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add((new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")));
         File file = fileChooser.showOpenDialog(null);
@@ -61,7 +61,7 @@ public class CheckInOutScreenController implements Initializable {
     }
 
     @FXML
-    void addBooksButtonClicked(ActionEvent event) {
+    void checkOutButtonClicked(ActionEvent event) {
         if(BusinessLogic.addBooks(path.getText())) {
             path.setText("");
             ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());

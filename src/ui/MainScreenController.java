@@ -47,14 +47,14 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void checkInOutButtonClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-screen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("check-in-out-screen.fxml")));
         ScreenLogic.getStage().setScene(new Scene(root, ScreenLogic.getStage().getScene().getWidth(), ScreenLogic.getStage().getScene().getHeight()));
         ScreenLogic.getStage().show();
     }
 
     @FXML
     void removeButtonClicked(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-screen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("remove-screen.fxml")));
         ScreenLogic.getStage().setScene(new Scene(root, ScreenLogic.getStage().getScene().getWidth(), ScreenLogic.getStage().getScene().getHeight()));
         ScreenLogic.getStage().show();
     }

@@ -1,15 +1,22 @@
 package main;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import ui.ListInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.IntBinaryOperator;
+
+
 
 public class BusinessLogic {
     static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     static Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+    static Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
 
     public static void initializeAlerts() {
         errorAlert.setTitle("Alert Dialog");
@@ -17,10 +24,12 @@ public class BusinessLogic {
 
         confirmationAlert.setTitle("Confirmation Dialog");
         confirmationAlert.setHeaderText("Success!");
+
+        informationAlert.setTitle("Information Dialog");
+        informationAlert.setHeaderText("Warning!");
     }
 
     public static boolean addBooks(String path) {
-        initializeAlerts();
         int lineNumber = 0;
         ArrayList<Book> booksToAdd = new ArrayList<>();
         try {
@@ -61,4 +70,56 @@ public class BusinessLogic {
             return false;
         }
     }
+    public static boolean removeBook(String input, String choice, ListInterface listChanger)  {
+        if(choice.equals("Title")) {
+            ArrayList<Book> removeList = getBooksByTitle(input);
+            if (removeList.size() == 1) {
+                for (Book book : BookLibrary.getBookList()) {
+                    if (input.equals(book.getTitle())) {
+                        BookLibrary.removeBook(book);
+                        BookLibrary.removeExistingId(book.getId());
+                        confirmationAlert.setContentText("The book has been removed successfully!");
+                        confirmationAlert.show();
+                        return true;
+                    }
+                }
+            } else if (removeList.size() > 1) {
+                listChanger.change(removeList);
+                informationAlert.setContentText("There are multiple books with that title! Please choose the ID of the book you want to remove from the list below.");
+                informationAlert.show();
+                return false;
+            }
+            errorAlert.setContentText("Invalid book title!");
+            errorAlert.show();
+            return false;
+        } else if (choice.equals("ID")) {
+            for (Book book : BookLibrary.getBookList()) {
+                if (input.equals(book.getId())) {
+                    BookLibrary.removeBook(book);
+                    BookLibrary.removeExistingId(book.getId());
+                    confirmationAlert.setContentText("The book has been removed successfully!");
+                    confirmationAlert.show();
+                    return true;
+                }
+            }
+            errorAlert.setContentText("Invalid book number!");
+            errorAlert.show();
+            return false;
+        }
+        else {
+            errorAlert.setContentText("Unknown category selection!");
+            errorAlert.show();
+            return false;
+        }
+    }
+        public static ArrayList<Book> getBooksByTitle(String title) {
+            ArrayList<Book> list = new ArrayList<>();
+
+            for (Book book : BookLibrary.getBookList()) {
+                if (title.equals(book.getTitle())) {
+                    list.add(book);
+                }
+            }
+            return list;
+        }
 }

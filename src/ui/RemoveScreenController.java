@@ -8,23 +8,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.FileChooser;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import main.Book;
 import main.BookLibrary;
 import main.BusinessLogic;
 
-
-
 public class RemoveScreenController implements Initializable {
 
+    ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
+    ObservableList<String> choiceList = FXCollections.observableArrayList("ID", "Title");
+
     @FXML
-    private TextField path;
+    private ChoiceBox<String> categoryChoice;
+
+    @FXML
+    private TextField input;
 
     @FXML
     private TableView<Book> table;
@@ -49,34 +53,18 @@ public class RemoveScreenController implements Initializable {
         ScreenLogic.changeToMain();
     }
 
-
-
     @FXML
-    void fileChooserButtonClicked(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add((new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")));
-        File file = fileChooser.showOpenDialog(null);
-        if(file != null) {
-            path.setText(file.getAbsolutePath());
-        }
-    }
-
-    @FXML
-    void addBooksButtonClicked(ActionEvent event) {
-        if(BusinessLogic.addBooks(path.getText())) {
-            path.setText("");
+    void removeBooksButtonClicked(ActionEvent event) {
+        if(BusinessLogic.removeBook(input.getText(), categoryChoice.getValue(), newBookList -> {
+            table.setItems(FXCollections.observableArrayList(newBookList));
+            categoryChoice.setValue("ID");
+            input.setText("");
+        })) {
+            input.setText("");
             ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
             table.setItems(bookList);
         }
     }
-
-    @FXML
-    void onPathChange(KeyEvent event) {
-        System.out.println("here");
-    }
-
-    ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,5 +75,7 @@ public class RemoveScreenController implements Initializable {
         tableTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
 
         table.setItems(bookList);
+        categoryChoice.setItems(choiceList);
+        categoryChoice.setValue("ID");
     }
 }

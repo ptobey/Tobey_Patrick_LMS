@@ -68,11 +68,6 @@ public class AddScreenController implements Initializable {
         }
     }
 
-    @FXML
-    void onPathChange(KeyEvent event) {
-        System.out.println("here");
-    }
-
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
 
 

@@ -280,41 +280,13 @@ public class Main extends Application {
 
     This method runs the main functions of the LMS based on the user's input.
     */
-    private static void startLMS() {
-        System.out.println("Welcome to Patrick's LMS!");
-        while (true) {
-            System.out.println("Please select an option by replying with its associated number:");
-            System.out.println("    1. Add books to the LMS");
-            System.out.println("    2. Remove a book from the LMS");
-            System.out.println("    3. List all books in the LMS");
-            System.out.println("    4. Check in a book");
-            System.out.println("    5. Check out a book");
-            System.out.println("    6. Leave the LMS");
-
-            String userInput = inputScanner.nextLine();
-
-            switch (userInput) {
-                case "2" -> removeBook();
-                case "4" -> checkInBook();
-                case "5" -> checkOutBook();
-                case "6" -> {
-                    System.out.println("Thank you for using Patrick's LMS");
-                    System.out.println("Good bye!");
-                    return;
-                }
-                default -> {
-                    System.out.println("Error: Unknown option!");
-                    System.out.println("Please try again!\n");
-                }
-            }
-        }
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
         ScreenLogic.setStage(stage);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../ui/main-screen.fxml")));
         stage.setScene(new Scene(root));
+        BusinessLogic.initializeAlerts();
         stage.show();
     }
 }
