@@ -1,3 +1,7 @@
+package main;
+
+import main.Book;
+
 import java.util.*;
 
 /*
@@ -5,7 +9,7 @@ Name: Patrick Tobey
 Course: Software Development 1
 Date 3/10/2024
 
-Class Name: BookLibrary
+Class Name: main.BookLibrary
 
 This class represents the book library information.
 This class has three properties: bookList, existingIds, and idCounter.

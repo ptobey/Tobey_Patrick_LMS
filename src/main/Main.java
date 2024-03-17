@@ -1,10 +1,12 @@
+package main;
+
+import ui.ScreenLogic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -13,9 +15,9 @@ Name: Patrick Tobey
 Course: Software Development 1
 Date 3/10/2024
 
-Class Name: Main
+Class Name: main.Main
 
-This class contains the Main method of the LMS application and runs all LMS processes.
+This class contains the main.Main method of the LMS application and runs all LMS processes.
 This class starts, runs, and closes the RMS according to user inputs.
 
 The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
@@ -40,12 +42,6 @@ public class Main extends Application {
 
     This method lists the books inside the book list.
     */
-    private static void listBooks() {
-        System.out.println("Here's the full book list:\n");
-        for (Book book : BookLibrary.getBookList()) {
-            book.print();
-        }
-    }
 
     /*
     Method Name: listBooks
@@ -89,38 +85,6 @@ public class Main extends Application {
     This method prompts the user to enter a file path to a CSV file, and it creates new books with the CSV information.
     It then adds the new books to the book list.
     */
-    private static void addBooks() {
-        System.out.println("Please enter the path of the CSV file that you want to add books from");
-        String path = inputScanner.nextLine();
-        int lineNumber = 0;
-        try {
-            Scanner fileScanner = new Scanner(new File(path));
-            while (fileScanner.hasNext()) {
-                lineNumber++;
-                String fileLine = fileScanner.nextLine();
-                String[] bookRecords = fileLine.split(",");
-
-                if (bookRecords.length == 3) {
-                    String id = bookRecords[0];
-                    String title = bookRecords[1];
-                    String author = bookRecords[2];
-
-                    if (BookLibrary.getExistingIds().contains(id)) {
-                        BookLibrary.addBook(new Book(title, author));
-                    } else {
-                        BookLibrary.addBook(new Book(id, title, author));
-                    }
-                } else {
-                    System.out.println("Error: The entry on line " + lineNumber + " of the book collection is in an invalid format!\n");
-                }
-            }
-            fileScanner.close();
-            System.out.println("The books were added successfully!\n");
-            listBooks();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: The book collection text file does not exist!\n");
-        }
-    }
 
     /*
     Method Name: checkInBook
@@ -146,7 +110,7 @@ public class Main extends Application {
                         if (title.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
                             book.checkIn();
                             System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
-                            listBooks();
+
                             return;
                         }
                     }
@@ -165,7 +129,6 @@ public class Main extends Application {
                             if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
                                 book.checkIn();
                                 System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
-                                listBooks();
                                 return;
                             }
                         }
@@ -200,7 +163,6 @@ public class Main extends Application {
                         if (title.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
                             book.checkOut();
                             System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
-                            listBooks();
                             return;
                         }
                     }
@@ -219,7 +181,6 @@ public class Main extends Application {
                             if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked In")) {
                                 book.checkOut();
                                 System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully check out!\n");
-                                listBooks();
                                 return;
                             }
                         }
@@ -249,7 +210,6 @@ public class Main extends Application {
                     BookLibrary.removeBook(book);
                     BookLibrary.removeExistingId(removeId);
                     System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
-                    listBooks();
                     return false;
                 }
             }
@@ -279,7 +239,6 @@ public class Main extends Application {
                         BookLibrary.removeBook(book);
                         BookLibrary.removeExistingId(book.getId());
                         System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
-                        listBooks();
                         return false;
                     }
                 }
@@ -299,7 +258,7 @@ public class Main extends Application {
     /*
     Method Name: getBooksByTitle
     Arguments: title String
-    Returns: ArrayList<Book>
+    Returns: ArrayList<main.Book>
 
     This method returns all books that have the same book title as the title argument.
     */
@@ -335,9 +294,7 @@ public class Main extends Application {
             String userInput = inputScanner.nextLine();
 
             switch (userInput) {
-                case "1" -> addBooks();
                 case "2" -> removeBook();
-                case "3" -> listBooks();
                 case "4" -> checkInBook();
                 case "5" -> checkOutBook();
                 case "6" -> {
@@ -355,8 +312,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        ScreenController.setStage(stage);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-screen.fxml")));
+        ScreenLogic.setStage(stage);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../ui/main-screen.fxml")));
         stage.setScene(new Scene(root));
         stage.show();
     }

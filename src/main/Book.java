@@ -1,3 +1,5 @@
+package main;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -6,7 +8,7 @@ Name: Patrick Tobey
 Course: Software Development 1
 Date 3/10/2024
 
-Class Name: Book
+Class Name: main.Book
 
 This class represents a single book.
 This class has five properties: id, title, author, status, and dueDate.
@@ -112,7 +114,7 @@ public class Book {
     This method prints the book's information to the console.
     */
     public void print() {
-        System.out.println("Book #" + id);
+        System.out.println("main.Book #" + id);
         System.out.println(title + " by " + author);
         System.out.println("Status: " + status);
         if (Objects.equals(status, "Checked Out")) {

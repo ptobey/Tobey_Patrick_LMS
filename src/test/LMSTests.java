@@ -1,3 +1,7 @@
+package test;
+
+import main.Book;
+import main.BookLibrary;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.LocalDate;
@@ -27,14 +31,14 @@ class LMSTests {
 
     //This test asserts that books can be added to the book library.
     @org.junit.jupiter.api.Test
-    @DisplayName("Add Book Test")
+    @DisplayName("Add main.Book Test")
     void addBook() {
         assertEquals(testBook, BookLibrary.getBookList().get(0));
     }
 
     //This test asserts that books can be checked out properly.
     @org.junit.jupiter.api.Test
-    @DisplayName("Check Out Book Test")
+    @DisplayName("Check Out main.Book Test")
     void checkOutBook() {
         assertEquals("Checked Out", BookLibrary.getBookList().get(0).getStatus());
         assertEquals(LocalDate.now().plusWeeks(4), BookLibrary.getBookList().get(0).getDueDate());
@@ -42,7 +46,7 @@ class LMSTests {
 
     //This test asserts that books can be checked in properly.
     @org.junit.jupiter.api.Test
-    @DisplayName("Check In Book Test")
+    @DisplayName("Check In main.Book Test")
     void checkInBook() {
         testBook.checkIn();
         assertEquals("Checked In", BookLibrary.getBookList().get(0).getStatus());
@@ -51,7 +55,7 @@ class LMSTests {
 
     //This test asserts that books can be removed from the book library.
     @org.junit.jupiter.api.Test
-    @DisplayName("Remove Book Test")
+    @DisplayName("Remove main.Book Test")
     void removeBook() {
         BookLibrary.removeBook(testBook);
         assertEquals(0, BookLibrary.getBookList().size());
