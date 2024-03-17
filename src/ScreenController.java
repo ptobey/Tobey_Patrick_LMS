@@ -54,7 +54,7 @@ public class ScreenController implements Initializable {
     @FXML
     void addButtonClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-screen.fxml")));
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root, primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight()));
         primaryStage.show();
 
     }
@@ -62,7 +62,9 @@ public class ScreenController implements Initializable {
     @FXML
     void mainButtonClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-screen.fxml")));
-        primaryStage.setScene(new Scene(root));
+
+        primaryStage.setScene(new Scene(root, primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight()));
+
         primaryStage.show();
     }
 
