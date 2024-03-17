@@ -1,7 +1,5 @@
 package main;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import ui.ListInterface;
 
@@ -9,8 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.function.IntBinaryOperator;
-
 
 
 public class BusinessLogic {
@@ -109,6 +105,49 @@ public class BusinessLogic {
         else {
             errorAlert.setContentText("Unknown category selection!");
             errorAlert.show();
+            return false;
+        }
+    }
+
+    public static boolean checkOutBook(String input, String choice, ListInterface listChanger) {
+        ArrayList<Book> checkOutList = getBooksByTitle(input);
+
+        if(choice.equals("Title")) {
+
+            if (checkOutList.size() == 1) {
+                for (Book book : BookLibrary.getBookList()) {
+                    if (input.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
+                        book.checkOut();
+                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else if (checkOutList.size() >= 1) {
+                System.out.println("There are multiple books with that title!\n");
+                listChanger.change(checkOutList);
+                return false;
+            }
+            else {
+                return false;
+            }
+        }
+        else if(choice.equals("ID")) {
+
+            if (BookLibrary.getExistingIds().contains(input)) {
+                for (Book book : BookLibrary.getBookList()) {
+                    if (input.equals(book.getId()) && book.getStatus().equals("Checked In")) {
+                        book.checkOut();
+                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully check out!\n");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        else {
+            System.out.println("Error: That book is already checked out or does not exist in the LMS!\n");
             return false;
         }
     }

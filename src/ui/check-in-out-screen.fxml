@@ -27,7 +27,7 @@
       <VBox alignment="TOP_CENTER" layoutX="77.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="14.0">
          <children>
             <Label prefHeight="17.0" prefWidth="157.0" text="Add books by choosing a file" textAlignment="CENTER" />
-            <TextField fx:id="path" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onPathChange" prefHeight="25.0" prefWidth="266.0" promptText="Title">
+            <TextField fx:id="input" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="266.0" promptText="Title">
                <VBox.margin>
                   <Insets bottom="-10.0" top="10.0" />
                </VBox.margin>

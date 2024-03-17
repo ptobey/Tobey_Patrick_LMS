@@ -66,8 +66,7 @@ public class Main extends Application {
             }
 
             switch (selection) {
-                case "1" -> loop = removeBookByTitle();
-                case "2" -> loop = removeBookById();
+
                 case "0" -> {
                     System.out.println("You successfully cancelled removing a book!\n");
                     return;
@@ -103,7 +102,7 @@ public class Main extends Application {
                 System.out.println("You successfully cancelled checking in a book!\n");
                 return;
             } else {
-                ArrayList<Book> checkInList = getBooksByTitle(title);
+                ArrayList<Book> checkInList = BusinessLogic.getBooksByTitle(title);
 
                 if (checkInList.size() == 1) {
                     for (Book book : BookLibrary.getBookList()) {
@@ -156,7 +155,7 @@ public class Main extends Application {
                 System.out.println("You successfully cancelled checking out a book!\n");
                 return;
             } else {
-                ArrayList<Book> checkOutList = getBooksByTitle(title);
+                ArrayList<Book> checkOutList = BusinessLogic.getBooksByTitle(title);
 
                 if (checkOutList.size() == 1) {
                     for (Book book : BookLibrary.getBookList()) {
@@ -198,25 +197,7 @@ public class Main extends Application {
 
     This method prompts the user to input a book ID, and it removes the specified book from the book list.
     */
-    private static boolean removeBookById() {
-        System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
-        String removeId = inputScanner.nextLine();
-        if (removeId.equals("0")) {
-            System.out.println("You successfully cancelled removing a book!\n");
-            return false;
-        } else if (BookLibrary.getExistingIds().contains(removeId)) {
-            for (Book book : BookLibrary.getBookList()) {
-                if (removeId.equals(book.getId())) {
-                    BookLibrary.removeBook(book);
-                    BookLibrary.removeExistingId(removeId);
-                    System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
-                    return false;
-                }
-            }
-        }
-        System.out.println("Error: Invalid book number!\n");
-        return true;
-    }
+
 
     /*
     Method Name: removeBookById
@@ -225,35 +206,6 @@ public class Main extends Application {
 
     This method prompts the user to input a book title, and it removes the specified book from the book list.
     */
-    private static boolean removeBookByTitle() {
-        System.out.println("Please enter the title of the book that you want to remove or enter 0 to cancel");
-        String title = inputScanner.nextLine();
-        if (title.equals("0")) {
-            System.out.println("You successfully cancelled removing a book!\n");
-            return false;
-        } else {
-            ArrayList<Book> removeList = getBooksByTitle(title);
-            if (removeList.size() == 1) {
-                for (Book book : BookLibrary.getBookList()) {
-                    if (title.equals(book.getTitle())) {
-                        BookLibrary.removeBook(book);
-                        BookLibrary.removeExistingId(book.getId());
-                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully removed from the LMS!\n");
-                        return false;
-                    }
-                }
-            } else if (removeList.size() > 1) {
-                System.out.println("There are multiple books with that title!\n");
-                for (Book book : removeList) {
-                    book.print();
-                }
-                removeBookById();
-                return false;
-            }
-        }
-        System.out.println("Error: Invalid book title!\n");
-        return true;
-    }
 
     /*
     Method Name: getBooksByTitle
@@ -262,16 +214,7 @@ public class Main extends Application {
 
     This method returns all books that have the same book title as the title argument.
     */
-    public static ArrayList<Book> getBooksByTitle(String title) {
-        ArrayList<Book> list = new ArrayList<>();
 
-        for (Book book : BookLibrary.getBookList()) {
-            if (title.equals(book.getTitle())) {
-                list.add(book);
-            }
-        }
-        return list;
-    }
 
     /*
     Method Name: startLMS

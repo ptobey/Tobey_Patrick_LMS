@@ -18,12 +18,16 @@ import main.BusinessLogic;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CheckInOutScreenController implements Initializable {
 
+    ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
+
     @FXML
-    private TextField path;
+    private TextField input;
 
     @FXML
     private TableView<Book> table;
@@ -32,7 +36,7 @@ public class CheckInOutScreenController implements Initializable {
     private TableColumn<Book, String> tableAuthor;
 
     @FXML
-    private TableColumn<Book, String> tableDueDate;
+    private TableColumn<Book, LocalDate> tableDueDate;
 
     @FXML
     private TableColumn<Book, String> tableID;
@@ -56,31 +60,30 @@ public class CheckInOutScreenController implements Initializable {
         fileChooser.getExtensionFilters().add((new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")));
         File file = fileChooser.showOpenDialog(null);
         if(file != null) {
-            path.setText(file.getAbsolutePath());
+            input.setText(file.getAbsolutePath());
         }
     }
 
     @FXML
     void checkOutButtonClicked(ActionEvent event) {
-        if(BusinessLogic.addBooks(path.getText())) {
-            path.setText("");
-            ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
-            table.setItems(bookList);
+        if(BusinessLogic.checkOutBook(input.getText(), "Title", newBookList -> {
+            table.setItems(FXCollections.observableArrayList(newBookList));
+           // categoryChoice.setValue("ID");
+            input.setText("");
+        })) {
+            input.setText("");
+            table.refresh();
+
+
+
         }
     }
-
-    @FXML
-    void onPathChange(KeyEvent event) {
-        System.out.println("here");
-    }
-
-    ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        tableDueDate.setCellValueFactory(new PropertyValueFactory<Book, String>("dueDate"));
+        tableDueDate.setCellValueFactory(new PropertyValueFactory<Book, LocalDate>("dueDate"));
         tableID.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
         tableStatus.setCellValueFactory(new PropertyValueFactory<Book, String>("status"));
         tableTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));

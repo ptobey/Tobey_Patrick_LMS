@@ -17,6 +17,7 @@ import main.BusinessLogic;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AddScreenController implements Initializable {
@@ -31,7 +32,7 @@ public class AddScreenController implements Initializable {
     private TableColumn<Book, String> tableAuthor;
 
     @FXML
-    private TableColumn<Book, String> tableDueDate;
+    private TableColumn<Book, LocalDate> tableDueDate;
 
     @FXML
     private TableColumn<Book, String> tableID;
@@ -74,7 +75,7 @@ public class AddScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        tableDueDate.setCellValueFactory(new PropertyValueFactory<Book, String>("dueDate"));
+        tableDueDate.setCellValueFactory(new PropertyValueFactory<Book, LocalDate>("dueDate"));
         tableID.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
         tableStatus.setCellValueFactory(new PropertyValueFactory<Book, String>("status"));
         tableTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
