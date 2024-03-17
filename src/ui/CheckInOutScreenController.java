@@ -49,7 +49,13 @@ public class CheckInOutScreenController implements Initializable {
 
     @FXML
     void mainButtonClicked(ActionEvent event) throws IOException {
-        ScreenLogic.changeToMain();
+        if(input.getPromptText().equals("ID")) {
+            input.setPromptText("Title");
+            input.setText("");
+        }
+        else {
+            ScreenLogic.changeToMain();
+        }
     }
 
 
@@ -66,16 +72,15 @@ public class CheckInOutScreenController implements Initializable {
 
     @FXML
     void checkOutButtonClicked(ActionEvent event) {
-        if(BusinessLogic.checkOutBook(input.getText(), "Title", newBookList -> {
+        //input.setPromptText("Title");
+        if(BusinessLogic.checkOutBook(input.getText(), input.getPromptText(), newBookList -> {
             table.setItems(FXCollections.observableArrayList(newBookList));
-           // categoryChoice.setValue("ID");
             input.setText("");
+            input.setPromptText("ID");
         })) {
             input.setText("");
+            input.setPromptText("Title");
             table.refresh();
-
-
-
         }
     }
 
