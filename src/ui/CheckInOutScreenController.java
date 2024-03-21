@@ -18,6 +18,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/*
+Name: Patrick Tobey
+Course: Software Development 1
+Date 3/24/2024
+
+Class Name: CheckInOutController
+
+This class handles all the controls for the check in/out screen.
+ */
 public class CheckInOutScreenController implements Initializable {
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
