@@ -13,27 +13,17 @@ import java.util.*;
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 3/10/2024
+Date 3/24/2024
 
-Class Name: main.Main
+Class Name: Main
 
-This class contains the main.Main method of the LMS application and runs all LMS processes.
+This class contains the main method (start) of the LMS application and runs all LMS processes.
 This class starts, runs, and closes the RMS according to user inputs.
 
 The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
 Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main extends Application {
-
-    /*
-    Method Name: addBooks
-    Arguments: none
-    Returns: void
-
-    This method prompts the user to enter a file path to a CSV file, and it creates new books with the CSV information.
-    It then adds the new books to the book list.
-    */
-
     /*
     Method Name: start
     Arguments: stage Stage

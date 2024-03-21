@@ -8,12 +8,27 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+Name: Patrick Tobey
+Course: Software Development 1
+Date 3/24/2024
 
+Class Name: BusinessLogic
+
+This class contains all the business logic to add, remove, check in, and check out books.
+ */
 public class BusinessLogic {
     static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     static Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     static Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
 
+    /*
+     Method Name: initializeAlerts
+     Arguments: none
+     Returns: void
+
+     This method initializes all the alerts that the BusinessLogic class uses to communicate important information to the user.
+     */
     public static void initializeAlerts() {
         errorAlert.setTitle("Alert Dialog");
         errorAlert.setHeaderText("Error!");
@@ -25,6 +40,14 @@ public class BusinessLogic {
         informationAlert.setHeaderText("Warning!");
     }
 
+    /*
+     Method Name: addBooks
+     Arguments: path String
+     Returns: boolean
+
+     This method takes in a file path to a CSV file, and it creates new books with that file's CSV information.
+     It then adds the new books to the book list if there were no errors with any of the entries.
+     */
     public static boolean addBooks(String path) {
         int lineNumber = 0;
         ArrayList<Book> booksToAdd = new ArrayList<>();
@@ -70,7 +93,7 @@ public class BusinessLogic {
     /*
      Method Name: removeBook
      Arguments: input String, choice String, and listChanger ListCallback
-     Returns: void
+     Returns: boolean
 
      This method removes a book that matches the provided input and choice type (Title or ID).
      If there are multiple books that share a title with the book that is being removed, this method calls the listChanger callback and inputs the books.
@@ -121,7 +144,7 @@ public class BusinessLogic {
     /*
      Method Name: removeBook
      Arguments: input String, choice String, and listChanger ListCallback
-     Returns: void
+     Returns: boolean
 
      This method checks out a book that matches the provided input and choice type (Title or ID).
      If there are multiple books that share a title with the book that is being checked out, this method calls the listChanger callback and inputs the books.
@@ -186,7 +209,7 @@ public class BusinessLogic {
     /*
      Method Name: checkInBook
      Arguments: input String, choice String, and listChanger ListCallback
-     Returns: void
+     Returns: boolean
 
      This method checks in a book that matches the provided input and choice type (Title or ID).
      If there are multiple books that share a title with the book that is being checked in, this method calls the listChanger callback and inputs the books.
