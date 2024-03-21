@@ -2,7 +2,6 @@ package main;
 
 import javafx.scene.control.Alert;
 import ui.ListCallback;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

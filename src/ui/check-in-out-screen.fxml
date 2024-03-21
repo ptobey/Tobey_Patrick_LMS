@@ -44,7 +44,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#mainButtonClicked" prefHeight="0.0" prefWidth="122.0" text="Back" />
+            <Button mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="0.0" prefWidth="122.0" text="Back" />
          </children>
       </VBox>
    </children>
