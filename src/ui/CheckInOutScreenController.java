@@ -97,6 +97,7 @@ public class CheckInOutScreenController implements Initializable {
             table.setItems(FXCollections.observableArrayList(bookList));
             table.refresh();
         }
+        input.setText("");
     }
 
     /*
