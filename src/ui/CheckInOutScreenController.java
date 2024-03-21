@@ -130,11 +130,11 @@ public class CheckInOutScreenController implements Initializable {
     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tableAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        tableDueDate.setCellValueFactory(new PropertyValueFactory<Book, LocalDate>("dueDate"));
-        tableID.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
-        tableStatus.setCellValueFactory(new PropertyValueFactory<Book, String>("status"));
-        tableTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+        tableAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        tableDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        tableID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tableTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 
         table.setItems(bookList);
     }
