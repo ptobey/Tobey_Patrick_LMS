@@ -4,6 +4,6 @@ import main.Book;
 
 import java.util.ArrayList;
 
-public interface ListInterface {
+public interface ListCallback {
     void change(ArrayList<Book> b);
 }

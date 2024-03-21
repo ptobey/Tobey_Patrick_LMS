@@ -24,57 +24,6 @@ The goal of this LMS application is to allow users to remove, check in, check ou
 Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main extends Application {
-    private static final Scanner inputScanner = new Scanner(System.in);
-
-    /*
-    Method Name: main
-    Arguments: args string array
-    Returns: void
-
-    This method is the start point of the program and runs the necessary methods to initialize and start the LMS.
-    */
-
-
-    /*
-    Method Name: listBooks
-    Arguments: none
-    Returns: void
-
-    This method lists the books inside the book list.
-    */
-
-    /*
-    Method Name: listBooks
-    Arguments: none
-    Returns: void
-
-    This method prompts the user to choose whether they want to remove a book by its title or id, and calls the appropriate method.
-    */
-    private static void removeBook() {
-
-        String selection = "";
-        boolean loop = true;
-
-        while (loop) {
-            if (!selection.equals("1") && !selection.equals("2")) {
-                System.out.println("Please select an option by replying with its associated number:");
-                System.out.println("    1. Remove a book by its title");
-                System.out.println("    2. Remove a book by its number");
-                System.out.println("    0. Cancel");
-
-                selection = inputScanner.nextLine();
-            }
-
-            switch (selection) {
-
-                case "0" -> {
-                    System.out.println("You successfully cancelled removing a book!\n");
-                    return;
-                }
-                default -> System.out.println("Error: Invalid selection!\n");
-            }
-        }
-    }
 
     /*
     Method Name: addBooks
@@ -86,150 +35,19 @@ public class Main extends Application {
     */
 
     /*
-    Method Name: checkInBook
-    Arguments: none
+    Method Name: start
+    Arguments: stage Stage
     Returns: void
 
-    This method prompts the user to enter the title of the book they want to check in.
-    It then checks the specified book in, or asks for the book number if there are multiple books with the same title and checks that book in.
+    This method is the start point of the program and runs the necessary methods to initialize and start the LMS.
     */
-    private static void checkInBook() {
-        while (true) {
-            System.out.println("Please enter the title of the book you want to check in or enter 0 to cancel");
-            String title = inputScanner.nextLine();
-
-            if (title.equals("0")) {
-                System.out.println("You successfully cancelled checking in a book!\n");
-                return;
-            } else {
-                ArrayList<Book> checkInList = BusinessLogic.getBooksByTitle(title);
-
-                if (checkInList.size() == 1) {
-                    for (Book book : BookLibrary.getBookList()) {
-                        if (title.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
-                            book.checkIn();
-                            System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
-
-                            return;
-                        }
-                    }
-                } else if (checkInList.size() >= 1) {
-                    System.out.println("There are multiple books with that title!\n");
-                    for (Book book : checkInList) {
-                        book.print();
-                    }
-                    System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
-                    String checkInId = inputScanner.nextLine();
-                    if (checkInId.equals("0")) {
-                        System.out.println("You successfully cancelled checking in a book!\n");
-                        return;
-                    } else if (BookLibrary.getExistingIds().contains(checkInId)) {
-                        for (Book book : BookLibrary.getBookList()) {
-                            if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
-                                book.checkIn();
-                                System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked in!\n");
-                                return;
-                            }
-                        }
-                    }
-                }
-                System.out.println("Error: That book is already checked in or does not exist in the LMS!\n");
-            }
-        }
-    }
-
-    /*
-    Method Name: checkOutBook
-    Arguments: none
-    Returns: void
-
-    This method prompts the user to enter the title of the book they want to check out.
-    It then checks the specified book out, or asks for the book number if there are multiple books with the same title and checks that book out.
-    */
-    private static void checkOutBook() {
-        while (true) {
-            System.out.println("Please enter the title of the book you want to check out or enter 0 to cancel");
-            String title = inputScanner.nextLine();
-
-            if (title.equals("0")) {
-                System.out.println("You successfully cancelled checking out a book!\n");
-                return;
-            } else {
-                ArrayList<Book> checkOutList = BusinessLogic.getBooksByTitle(title);
-
-                if (checkOutList.size() == 1) {
-                    for (Book book : BookLibrary.getBookList()) {
-                        if (title.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
-                            book.checkOut();
-                            System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
-                            return;
-                        }
-                    }
-                } else if (checkOutList.size() >= 1) {
-                    System.out.println("There are multiple books with that title!\n");
-                    for (Book book : checkOutList) {
-                        book.print();
-                    }
-                    System.out.println("Please enter the number of the book that you want to remove or enter 0 to cancel");
-                    String checkInId = inputScanner.nextLine();
-                    if (checkInId.equals("0")) {
-                        System.out.println("You successfully cancelled checking out a book!\n");
-                        return;
-                    } else if (BookLibrary.getExistingIds().contains(checkInId)) {
-                        for (Book book : BookLibrary.getBookList()) {
-                            if (checkInId.equals(book.getId()) && book.getStatus().equals("Checked In")) {
-                                book.checkOut();
-                                System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully check out!\n");
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            System.out.println("Error: That book is already checked out or does not exist in the LMS!\n");
-        }
-    }
-
-    /*
-    Method Name: removeBookById
-    Arguments: none
-    Returns: void
-
-    This method prompts the user to input a book ID, and it removes the specified book from the book list.
-    */
-
-
-    /*
-    Method Name: removeBookById
-    Arguments: none
-    Returns: void
-
-    This method prompts the user to input a book title, and it removes the specified book from the book list.
-    */
-
-    /*
-    Method Name: getBooksByTitle
-    Arguments: title String
-    Returns: ArrayList<main.Book>
-
-    This method returns all books that have the same book title as the title argument.
-    */
-
-
-    /*
-    Method Name: startLMS
-    Arguments: none
-    Returns: void
-
-    This method runs the main functions of the LMS based on the user's input.
-    */
-
     @Override
     public void start(Stage stage) throws IOException {
         ScreenLogic.setStage(stage);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../ui/main-screen.fxml")));
         stage.setScene(new Scene(root));
         BusinessLogic.initializeAlerts();
+        stage.setTitle("Patrick's LMS");
         stage.show();
     }
 }

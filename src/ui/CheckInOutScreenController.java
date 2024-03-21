@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,6 +26,11 @@ import java.util.ResourceBundle;
 public class CheckInOutScreenController implements Initializable {
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
+
+    String labelText = "Check in or out a book by its ";
+
+    @FXML
+    private Label label;
 
     @FXML
     private TextField input;
@@ -52,36 +58,42 @@ public class CheckInOutScreenController implements Initializable {
         if(input.getPromptText().equals("ID")) {
             input.setPromptText("Title");
             input.setText("");
+            table.setItems(bookList);
         }
         else {
             ScreenLogic.changeToMain();
         }
     }
 
-
-
     @FXML
     void checkInButtonClicked(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add((new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")));
-        File file = fileChooser.showOpenDialog(null);
-        if(file != null) {
-            input.setText(file.getAbsolutePath());
+        if(BusinessLogic.checkInBook(input.getText(), input.getPromptText(), newBookList -> {
+            table.setItems(FXCollections.observableArrayList(newBookList));
+            input.setText("");
+            input.setPromptText("ID");
+            label.setText(labelText+"ID");
+        })) {
+            input.setText("");
+            input.setPromptText("Title");
+            label.setText(labelText+"title");
+            table.setItems(FXCollections.observableArrayList(bookList));
+            table.refresh();
         }
     }
 
     @FXML
     void checkOutButtonClicked(ActionEvent event) {
-        //input.setPromptText("Title");
         if(BusinessLogic.checkOutBook(input.getText(), input.getPromptText(), newBookList -> {
             table.setItems(FXCollections.observableArrayList(newBookList));
-            input.setText("");
             input.setPromptText("ID");
+            label.setText(labelText+"ID");
         })) {
-            input.setText("");
             input.setPromptText("Title");
+            label.setText(labelText+"title");
+            table.setItems(FXCollections.observableArrayList(bookList));
             table.refresh();
         }
+        input.setText("");
     }
 
 

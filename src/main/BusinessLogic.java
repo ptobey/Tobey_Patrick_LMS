@@ -1,7 +1,7 @@
 package main;
 
 import javafx.scene.control.Alert;
-import ui.ListInterface;
+import ui.ListCallback;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,7 +66,16 @@ public class BusinessLogic {
             return false;
         }
     }
-    public static boolean removeBook(String input, String choice, ListInterface listChanger)  {
+
+    /*
+     Method Name: removeBook
+     Arguments: input String, choice String, and listChanger ListCallback
+     Returns: void
+
+     This method removes a book that matches the provided input and choice type (Title or ID).
+     If there are multiple books that share a title with the book that is being removed, this method calls the listChanger callback and inputs the books.
+     */
+    public static boolean removeBook(String input, String choice, ListCallback listChanger)  {
         if(choice.equals("Title")) {
             ArrayList<Book> removeList = getBooksByTitle(input);
             if (removeList.size() == 1) {
@@ -109,7 +118,15 @@ public class BusinessLogic {
         }
     }
 
-    public static boolean checkOutBook(String input, String choice, ListInterface listChanger) {
+    /*
+     Method Name: removeBook
+     Arguments: input String, choice String, and listChanger ListCallback
+     Returns: void
+
+     This method checks out a book that matches the provided input and choice type (Title or ID).
+     If there are multiple books that share a title with the book that is being checked out, this method calls the listChanger callback and inputs the books.
+     */
+    public static boolean checkOutBook(String input, String choice, ListCallback listChanger) {
         ArrayList<Book> checkOutList = getBooksByTitle(input);
 
         if(choice.equals("Title")) {
@@ -118,18 +135,24 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
                         book.checkOut();
-                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully checked out!\n");
+                        confirmationAlert.setContentText("The book has been successfully checked out!");
+                        confirmationAlert.show();
                         return true;
                     }
                 }
+                errorAlert.setContentText("That book is already checked out or does not exist in the LMS!");
+                errorAlert.show();
                 return false;
             }
             else if (checkOutList.size() >= 1) {
-                System.out.println("There are multiple books with that title!\n");
+                informationAlert.setContentText("There are multiple books with that title! Please choose the ID of the book you want to check in or out from the list below.");
+                informationAlert.show();
                 listChanger.change(checkOutList);
                 return false;
             }
             else {
+                errorAlert.setContentText("That book is already checked out or does not exist in the LMS!");
+                errorAlert.show();
                 return false;
             }
         }
@@ -139,26 +162,106 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getId()) && book.getStatus().equals("Checked In")) {
                         book.checkOut();
-                        System.out.println(book.getTitle() + " by " + book.getAuthor() + " has been successfully check out!\n");
+                        confirmationAlert.setContentText("The book has been successfully checked out!");
+                        confirmationAlert.show();
                         return true;
                     }
                 }
+                errorAlert.setContentText("That book is already checked out!");
+                errorAlert.show();
+                return false;
             }
+            errorAlert.setContentText("Invalid book number!");
+            errorAlert.show();
             return false;
+
         }
         else {
-            System.out.println("Error: That book is already checked out or does not exist in the LMS!\n");
+            errorAlert.setContentText("That book is already checked out or does not exist in the LMS!");
+            errorAlert.show();
             return false;
         }
     }
-        public static ArrayList<Book> getBooksByTitle(String title) {
-            ArrayList<Book> list = new ArrayList<>();
 
-            for (Book book : BookLibrary.getBookList()) {
-                if (title.equals(book.getTitle())) {
-                    list.add(book);
+    /*
+     Method Name: checkInBook
+     Arguments: input String, choice String, and listChanger ListCallback
+     Returns: void
+
+     This method checks in a book that matches the provided input and choice type (Title or ID).
+     If there are multiple books that share a title with the book that is being checked in, this method calls the listChanger callback and inputs the books.
+     */
+    public static boolean checkInBook(String input, String choice, ListCallback listChanger) {
+        ArrayList<Book> checkOutList = getBooksByTitle(input);
+
+        if(choice.equals("Title")) {
+
+            if (checkOutList.size() == 1) {
+                for (Book book : BookLibrary.getBookList()) {
+                    if (input.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
+                        book.checkIn();
+                        confirmationAlert.setContentText("The book has been successfully checked in!");
+                        confirmationAlert.show();
+                        return true;
+                    }
                 }
+                errorAlert.setContentText("That book is already checked in or does not exist in the LMS!");
+                errorAlert.show();
+                return false;
             }
-            return list;
+            else if (checkOutList.size() >= 1) {
+                informationAlert.setContentText("There are multiple books with that title! Please choose the ID of the book you want to check in or out from the list below.");
+                informationAlert.show();
+                listChanger.change(checkOutList);
+                return false;
+            }
+            else {
+                errorAlert.setContentText("That book is already checked in or does not exist in the LMS!");
+                errorAlert.show();
+                return false;
+            }
         }
+        else if(choice.equals("ID")) {
+
+            if (BookLibrary.getExistingIds().contains(input)) {
+                for (Book book : BookLibrary.getBookList()) {
+                    if (input.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
+                        book.checkIn();
+                        confirmationAlert.setContentText("The book has been successfully checked in!");
+                        confirmationAlert.show();
+                        return true;
+                    }
+                }
+                errorAlert.setContentText("That book is already checked in!");
+                errorAlert.show();
+                return false;
+            }
+            errorAlert.setContentText("Invalid book number!");
+            errorAlert.show();
+            return false;
+        }
+        else {
+            errorAlert.setContentText("That book is already checked in or does not exist in the LMS!");
+            errorAlert.show();
+            return false;
+        }
+    }
+
+    /*
+    Method Name: getBooksByTitle
+    Arguments: title String
+    Returns: ArrayList<main.Book>
+
+    This method returns all books that have the same book title as the title argument.
+    */
+    public static ArrayList<Book> getBooksByTitle(String title) {
+        ArrayList<Book> list = new ArrayList<>();
+
+        for (Book book : BookLibrary.getBookList()) {
+            if (title.equals(book.getTitle())) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
 }
