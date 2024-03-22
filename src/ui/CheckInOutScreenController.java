@@ -94,7 +94,7 @@ public class CheckInOutScreenController implements Initializable {
             input.setText("");
             input.setPromptText("Title");
             label.setText(labelText+"title");
-            table.setItems(FXCollections.observableArrayList(bookList));
+            table.setItems(FXCollections.observableArrayList(BookLibrary.getBookList()));
             table.refresh();
         }
         input.setText("");
@@ -116,7 +116,7 @@ public class CheckInOutScreenController implements Initializable {
         })) {
             input.setPromptText("Title");
             label.setText(labelText+"title");
-            table.setItems(FXCollections.observableArrayList(bookList));
+            table.setItems(FXCollections.observableArrayList(BookLibrary.getBookList()));
             table.refresh();
         }
         input.setText("");

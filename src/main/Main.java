@@ -1,5 +1,6 @@
 package main;
 
+import database.DatabaseLogic;
 import ui.ScreenLogic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class Main extends Application {
     */
     @Override
     public void start(Stage stage) throws IOException {
+        DatabaseLogic.update();
         ScreenLogic.setStage(stage);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../ui/main-screen.fxml")));
         stage.setScene(new Scene(root));

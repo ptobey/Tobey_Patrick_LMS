@@ -15,7 +15,7 @@ All three properties have getters and methods to alter them.
 The idCounter getter also increments it.
  */
 public class BookLibrary {
-    private static final ArrayList<Book> bookList = new ArrayList<>();
+    private static ArrayList<Book> bookList = new ArrayList<>();
     private static final Set<String> existingIds = new HashSet<>();
     private static int idCounter = 0;
 
@@ -69,6 +69,10 @@ public class BookLibrary {
     */
     public static void addBook(Book book) {
         bookList.add(book);
+    }
+
+    public static void setBookList(ArrayList<Book> books) {
+        bookList = books;
     }
 
     /*

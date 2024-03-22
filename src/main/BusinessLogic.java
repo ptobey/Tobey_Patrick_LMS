@@ -1,9 +1,11 @@
 package main;
 
+import database.DatabaseLogic;
 import javafx.scene.control.Alert;
 import ui.ListCallback;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,11 +76,9 @@ public class BusinessLogic {
                 }
             }
 
-            for(Book book : booksToAdd) {
-                BookLibrary.addBook(book);
-            }
-
             fileScanner.close();
+            DatabaseLogic.add(booksToAdd);
+            DatabaseLogic.update();
             confirmationAlert.setContentText("The books were added successfully!");
             confirmationAlert.show();
             return true;
@@ -103,7 +103,8 @@ public class BusinessLogic {
             if (removeList.size() == 1) {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle())) {
-                        BookLibrary.removeBook(book);
+                        DatabaseLogic.delete(input, choice);
+                        DatabaseLogic.update();
                         BookLibrary.removeExistingId(book.getId());
                         confirmationAlert.setContentText("The book has been removed successfully!");
                         confirmationAlert.show();
@@ -122,7 +123,8 @@ public class BusinessLogic {
         } else if (choice.equals("ID")) {
             for (Book book : BookLibrary.getBookList()) {
                 if (input.equals(book.getId())) {
-                    BookLibrary.removeBook(book);
+                    DatabaseLogic.delete(input, choice);
+                    DatabaseLogic.update();
                     BookLibrary.removeExistingId(book.getId());
                     confirmationAlert.setContentText("The book has been removed successfully!");
                     confirmationAlert.show();
@@ -141,7 +143,7 @@ public class BusinessLogic {
     }
 
     /*
-     Method Name: removeBook
+     Method Name: checkOutBook
      Arguments: input String, choice String, and listChanger ListCallback
      Returns: boolean
 
@@ -156,7 +158,8 @@ public class BusinessLogic {
             if (checkOutList.size() == 1) {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
-                        book.checkOut();
+                        DatabaseLogic.update(input, choice, "Checked Out", LocalDate.now().plusWeeks(4));
+                        DatabaseLogic.update();
                         confirmationAlert.setContentText("The book has been successfully checked out!");
                         confirmationAlert.show();
                         return true;
@@ -183,7 +186,8 @@ public class BusinessLogic {
             if (BookLibrary.getExistingIds().contains(input)) {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getId()) && book.getStatus().equals("Checked In")) {
-                        book.checkOut();
+                        DatabaseLogic.update(input, choice, "Checked Out", LocalDate.now().plusWeeks(4));
+                        DatabaseLogic.update();
                         confirmationAlert.setContentText("The book has been successfully checked out!");
                         confirmationAlert.show();
                         return true;
@@ -221,7 +225,8 @@ public class BusinessLogic {
             if (checkOutList.size() == 1) {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
-                        book.checkIn();
+                        DatabaseLogic.update(input, choice, "Checked In", null);
+                        DatabaseLogic.update();
                         confirmationAlert.setContentText("The book has been successfully checked in!");
                         confirmationAlert.show();
                         return true;
@@ -244,11 +249,11 @@ public class BusinessLogic {
             }
         }
         else if(choice.equals("ID")) {
-
             if (BookLibrary.getExistingIds().contains(input)) {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
-                        book.checkIn();
+                        DatabaseLogic.update(input, choice, "Checked In", null);
+                        DatabaseLogic.update();
                         confirmationAlert.setContentText("The book has been successfully checked in!");
                         confirmationAlert.show();
                         return true;

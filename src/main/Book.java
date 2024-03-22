@@ -19,8 +19,8 @@ public class Book {
     private final String id;
     private final String title;
     private final String author;
-    private String status;
     private LocalDate dueDate;
+    private String status;
 
     /*
     The constructor used if an ID needs to be generated for the book
@@ -37,8 +37,8 @@ public class Book {
         } while (BookLibrary.getExistingIds().contains(newId));
 
         this.id = newId;
-        this.dueDate = null;
         this.status = "Checked In";
+        this.dueDate = null;
         BookLibrary.addExistingId(newId);
     }
 
@@ -49,8 +49,20 @@ public class Book {
         this.title = title;
         this.author = author;
         this.id = id;
-        this.dueDate = null;
         this.status = "Checked In";
+        this.dueDate = null;
+        BookLibrary.addExistingId(id);
+    }
+
+    /*
+    The constructor used if everything is already created for the book
+     */
+    public Book(String id, String title, String author, String status, LocalDate dueDate) {
+        this.title = title;
+        this.author = author;
+        this.id = id;
+        this.status = status;
+        this.dueDate = dueDate;
         BookLibrary.addExistingId(id);
     }
 
@@ -104,22 +116,5 @@ public class Book {
         } else {
             System.out.println("There was an unexpected error checking out that book. Please contact the LMS developer if you receive this error!");
         }
-    }
-
-    /*
-    Method Name: print
-    Arguments: none
-    Returns: void
-
-    This method prints the book's information to the console.
-    */
-    public void print() {
-        System.out.println("main.Book #" + id);
-        System.out.println(title + " by " + author);
-        System.out.println("Status: " + status);
-        if (Objects.equals(status, "Checked Out")) {
-            System.out.println("Due Date: " + dueDate);
-        }
-        System.out.println();
     }
 }
