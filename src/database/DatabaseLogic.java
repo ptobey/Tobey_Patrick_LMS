@@ -1,13 +1,29 @@
 package database;
 import main.Book;
 import main.BookLibrary;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+Name: Patrick Tobey
+Course: Software Development 1
+Date 4/7/2024
+
+Class Name: DeleteLogic
+
+This class handles all database interactions.
+ */
 public class DatabaseLogic {
     static String url = "jdbc:sqlite:C:/Users/patmi/IdeaProjects/Tobey_Patrick_LMS/src/database/lms.db";
+
+    /*
+    Method Name: select
+    Arguments: none
+    Returns: void
+
+    This method queries the database and sets the book list in memory to database's current book list.
+    */
     public static void select() {
 
         String query = "SELECT * FROM Books;";
@@ -40,6 +56,14 @@ public class DatabaseLogic {
             e.printStackTrace();
         }
     }
+
+    /*
+    Method Name: insert
+    Arguments: bookList ArrayList<Book>
+    Returns: void
+
+    This method inserts all the books from the bookList argument into the database.
+    */
     public static void insert(ArrayList<Book> bookList) {
         String query = "INSERT INTO Books (id, title, author, genre, status, dueDate) VALUES (?, ?, ?, ?, 'Checked In', null);";
 
@@ -51,6 +75,7 @@ public class DatabaseLogic {
                 statement.setString(2, book.getTitle());
                 statement.setString(3, book.getAuthor());
                 statement.setString(4, book.getGenre());
+
                 statement.executeUpdate();
             }
         }
@@ -59,6 +84,13 @@ public class DatabaseLogic {
         }
     }
 
+    /*
+    Method Name: delete
+    Arguments: input String and choice String
+    Returns: void
+
+    This method deletes a record from the database depending on the input and choice argument selections.
+    */
     public static void delete(String input, String choice) {
         String query;
         if(choice.equals("Title")) {
@@ -77,13 +109,19 @@ public class DatabaseLogic {
 
             statement.setString(1, input);
             statement.executeUpdate();
-
         }
         catch(SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /*
+    Method Name: update
+    Arguments: input String and choice String
+    Returns: void
+
+    This method updates a record's status and dueDate from the database, depending on the input and choice argument selections.
+    */
     public static void update(String input, String choice, String status, LocalDate dueDate) {
         String query;
         String date;
@@ -111,8 +149,8 @@ public class DatabaseLogic {
             statement.setString(3, input);
 
             statement.executeUpdate();
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

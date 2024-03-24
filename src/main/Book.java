@@ -6,13 +6,13 @@ import java.util.Objects;
 /*
 Name: Patrick Tobey
 Course: Software Development 1
-Date 3/24/2024
+Date 4/7/2024
 
 Class Name: main.Book
 
 This class represents a single book.
-This class has five properties: id, title, author, status, and dueDate.
-All five properties have getters, but only the status and dueDate has setters.
+This class has five properties: id, title, author, genre, status, and dueDate.
+All six properties have getters, but only the status and dueDate has setters.
 
  */
 public class Book {
