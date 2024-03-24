@@ -59,15 +59,16 @@ public class BusinessLogic {
                 String fileLine = fileScanner.nextLine();
                 String[] bookRecords = fileLine.split(",");
 
-                if (bookRecords.length == 3) {
+                if (bookRecords.length == 4) {
                     String id = bookRecords[0];
                     String title = bookRecords[1];
                     String author = bookRecords[2];
+                    String genre = bookRecords[3];
 
                     if (BookLibrary.getExistingIds().contains(id)) {
-                        booksToAdd.add(new Book(title, author));
+                        booksToAdd.add(new Book(title, author, genre));
                     } else {
-                        booksToAdd.add(new Book(id, title, author));
+                        booksToAdd.add(new Book(id, title, author, genre));
                     }
                 } else {
                     errorAlert.setContentText("The entry on line " + lineNumber + " of the book collection is in an invalid format!");
@@ -77,8 +78,8 @@ public class BusinessLogic {
             }
 
             fileScanner.close();
-            DatabaseLogic.add(booksToAdd);
-            DatabaseLogic.update();
+            DatabaseLogic.insert(booksToAdd);
+            DatabaseLogic.select();
             confirmationAlert.setContentText("The books were added successfully!");
             confirmationAlert.show();
             return true;
@@ -104,7 +105,7 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle())) {
                         DatabaseLogic.delete(input, choice);
-                        DatabaseLogic.update();
+                        DatabaseLogic.select();
                         BookLibrary.removeExistingId(book.getId());
                         confirmationAlert.setContentText("The book has been removed successfully!");
                         confirmationAlert.show();
@@ -124,7 +125,7 @@ public class BusinessLogic {
             for (Book book : BookLibrary.getBookList()) {
                 if (input.equals(book.getId())) {
                     DatabaseLogic.delete(input, choice);
-                    DatabaseLogic.update();
+                    DatabaseLogic.select();
                     BookLibrary.removeExistingId(book.getId());
                     confirmationAlert.setContentText("The book has been removed successfully!");
                     confirmationAlert.show();
@@ -159,7 +160,7 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle()) && book.getStatus().equals("Checked In")) {
                         DatabaseLogic.update(input, choice, "Checked Out", LocalDate.now().plusWeeks(4));
-                        DatabaseLogic.update();
+                        DatabaseLogic.select();
                         confirmationAlert.setContentText("The book has been successfully checked out!");
                         confirmationAlert.show();
                         return true;
@@ -187,7 +188,7 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getId()) && book.getStatus().equals("Checked In")) {
                         DatabaseLogic.update(input, choice, "Checked Out", LocalDate.now().plusWeeks(4));
-                        DatabaseLogic.update();
+                        DatabaseLogic.select();
                         confirmationAlert.setContentText("The book has been successfully checked out!");
                         confirmationAlert.show();
                         return true;
@@ -226,7 +227,7 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getTitle()) && book.getStatus().equals("Checked Out")) {
                         DatabaseLogic.update(input, choice, "Checked In", null);
-                        DatabaseLogic.update();
+                        DatabaseLogic.select();
                         confirmationAlert.setContentText("The book has been successfully checked in!");
                         confirmationAlert.show();
                         return true;
@@ -253,7 +254,7 @@ public class BusinessLogic {
                 for (Book book : BookLibrary.getBookList()) {
                     if (input.equals(book.getId()) && book.getStatus().equals("Checked Out")) {
                         DatabaseLogic.update(input, choice, "Checked In", null);
-                        DatabaseLogic.update();
+                        DatabaseLogic.select();
                         confirmationAlert.setContentText("The book has been successfully checked in!");
                         confirmationAlert.show();
                         return true;

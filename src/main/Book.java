@@ -19,17 +19,19 @@ public class Book {
     private final String id;
     private final String title;
     private final String author;
+    private final String genre;
     private LocalDate dueDate;
     private String status;
 
     /*
     The constructor used if an ID needs to be generated for the book
      */
-    public Book(String title, String author) {
+    public Book(String title, String author, String genre) {
         String newId;
 
         this.title = title;
         this.author = author;
+        this.genre = genre;
 
         do {
             newId = String.valueOf(BookLibrary.incrementIdCounter());
@@ -45,9 +47,10 @@ public class Book {
     /*
     The constructor used if an ID is already created for the book
      */
-    public Book(String id, String title, String author) {
+    public Book(String id, String title, String author, String genre) {
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.id = id;
         this.status = "Checked In";
         this.dueDate = null;
@@ -57,9 +60,10 @@ public class Book {
     /*
     The constructor used if everything is already created for the book
      */
-    public Book(String id, String title, String author, String status, LocalDate dueDate) {
+    public Book(String id, String title, String author, String genre, String status, LocalDate dueDate) {
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.id = id;
         this.status = status;
         this.dueDate = dueDate;
@@ -76,6 +80,10 @@ public class Book {
 
     public String getAuthor() {
         return this.author;
+    }
+
+    public String getGenre() {
+        return this.genre;
     }
 
     public String getStatus() {

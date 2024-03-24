@@ -45,6 +45,9 @@ public class RemoveScreenController implements Initializable {
     private TableColumn<Book, String> tableAuthor;
 
     @FXML
+    private TableColumn<Book, String> tableGenre;
+
+    @FXML
     private TableColumn<Book, LocalDate> tableDueDate;
 
     @FXML
@@ -99,6 +102,7 @@ public class RemoveScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         tableDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        tableGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         tableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tableTitle.setCellValueFactory(new PropertyValueFactory<>("title"));

@@ -17,6 +17,7 @@
           <TableColumn fx:id="tableID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tableTitle" prefWidth="75.0" text="Title" />
             <TableColumn fx:id="tableAuthor" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="tableGenre" prefWidth="75.0" text="Genre" />
             <TableColumn fx:id="tableStatus" prefWidth="75.0" text="Status" />
             <TableColumn fx:id="tableDueDate" prefWidth="75.0" text="Due Date" />
         </columns>

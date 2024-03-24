@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DatabaseLogic {
     static String url = "jdbc:sqlite:C:/Users/patmi/IdeaProjects/Tobey_Patrick_LMS/src/database/lms.db";
-    public static void update() {
+    public static void select() {
 
         String query = "SELECT * FROM Books;";
 
@@ -23,6 +23,7 @@ public class DatabaseLogic {
                 String id = results.getString("id");
                 String title = results.getString("title");
                 String author = results.getString("author");
+                String genre = results.getString("genre");
                 String status = results.getString("status");
                 if(results.getString("dueDate") != null) {
                     dueDate = LocalDate.parse(results.getString("dueDate"));
@@ -30,7 +31,7 @@ public class DatabaseLogic {
                 else {
                     dueDate = null;
                 }
-                bookList.add(new Book(id, title, author, status, dueDate));
+                bookList.add(new Book(id, title, author, genre, status, dueDate));
             }
             connection.close();
             BookLibrary.setBookList(bookList);
@@ -39,8 +40,8 @@ public class DatabaseLogic {
             e.printStackTrace();
         }
     }
-    public static void add(ArrayList<Book> bookList) {
-        String query = "INSERT INTO Books (id, title, author, status, dueDate) VALUES (?, ?, ?, 'Checked In', null);";
+    public static void insert(ArrayList<Book> bookList) {
+        String query = "INSERT INTO Books (id, title, author, genre, status, dueDate) VALUES (?, ?, ?, ?, 'Checked In', null);";
 
         try {
             Connection connection = DriverManager.getConnection(url);
@@ -49,6 +50,7 @@ public class DatabaseLogic {
                 statement.setString(1, book.getId());
                 statement.setString(2, book.getTitle());
                 statement.setString(3, book.getAuthor());
+                statement.setString(4, book.getGenre());
                 statement.executeUpdate();
             }
         }
