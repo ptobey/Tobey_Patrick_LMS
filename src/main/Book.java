@@ -3,17 +3,10 @@ package main;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: main.Book
-
-This class represents a single book.
-This class has five properties: id, title, author, genre, status, and dueDate.
-All six properties have getters, but only the status and dueDate has setters.
-
+/**
+ * This class represents a single book.
+ * It has five properties: id, title, author, genre, status, and dueDate.
+ * All six properties have getters, but only the status and dueDate has setters.
  */
 public class Book {
     private final String id;
@@ -23,8 +16,8 @@ public class Book {
     private LocalDate dueDate;
     private String status;
 
-    /*
-    The constructor used if an ID needs to be generated for the book
+    /**
+     * The constructor used if an ID needs to be generated for the book
      */
     public Book(String title, String author, String genre) {
         String newId;
@@ -44,8 +37,8 @@ public class Book {
         BookLibrary.addExistingId(newId);
     }
 
-    /*
-    The constructor used if an ID is already created for the book
+    /**
+     * The constructor used if an ID is already created for the book
      */
     public Book(String id, String title, String author, String genre) {
         this.title = title;
@@ -57,8 +50,8 @@ public class Book {
         BookLibrary.addExistingId(id);
     }
 
-    /*
-    The constructor used if everything is already created for the book
+    /**
+     * The constructor used if everything is already created for the book
      */
     public Book(String id, String title, String author, String genre, String status, LocalDate dueDate) {
         this.title = title;
@@ -94,13 +87,9 @@ public class Book {
         return this.dueDate;
     }
 
-    /*
-    Method Name: checkIn
-    Arguments: none
-    Returns: void
-
-    This method processes the checking in of the book by changing its status and resetting its due date.
-    */
+    /**
+     * Processes the checking in of the book by changing its status and resetting its due date.
+     */
     public void checkIn() {
         if (Objects.equals(status, "Checked Out")) {
             status = "Checked In";
@@ -110,13 +99,9 @@ public class Book {
         }
     }
 
-    /*
-    Method Name: checkOut
-    Arguments: none
-    Returns: void
-
-    This method processes the checking out of the book by changing its status and setting its due date.
-    */
+    /**
+     * Processes the checking out of the book by changing its status and setting its due date.
+     */
     public void checkOut() {
         if (Objects.equals(status, "Checked In")) {
             status = "Checked Out";

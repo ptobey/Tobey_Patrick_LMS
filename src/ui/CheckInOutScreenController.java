@@ -18,14 +18,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: CheckInOutController
-
-This class handles all the controls for the check in/out screen.
+/**
+ * This class handles all the controls for the check in/out screen.
  */
 public class CheckInOutScreenController implements Initializable {
 
@@ -60,13 +54,9 @@ public class CheckInOutScreenController implements Initializable {
     @FXML
     private TableColumn<Book, String> tableTitle;
 
-    /*
-    Method Name: backButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method runs the method that changes the screen back to the main screen, or it changes the selection type back to "Title" if it is currently "ID."
-    */
+    /**
+     * Runs the method that changes the screen back to the main screen, or it changes the selection type back to "Title" if it is currently "ID."
+     */
     @FXML
     void backButtonClicked(ActionEvent event) throws IOException {
         if(input.getPromptText().equals("ID")) {
@@ -79,13 +69,9 @@ public class CheckInOutScreenController implements Initializable {
         }
     }
 
-    /*
-    Method Name: checkInButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method attempts to check in the specified book.
-    */
+    /**
+     * Attempts to check in the specified book.
+     */
     @FXML
     void checkInButtonClicked(ActionEvent event) {
         if(BusinessLogic.checkInBook(input.getText(), input.getPromptText(), newBookList -> {
@@ -103,13 +89,9 @@ public class CheckInOutScreenController implements Initializable {
         input.setText("");
     }
 
-    /*
-    Method Name: checkOutButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method checks out the specified book.
-    */
+    /**
+     * Attempts to check out the specified book.
+     */
     @FXML
     void checkOutButtonClicked(ActionEvent event) {
         if(BusinessLogic.checkOutBook(input.getText(), input.getPromptText(), newBookList -> {
@@ -125,13 +107,9 @@ public class CheckInOutScreenController implements Initializable {
         input.setText("");
     }
 
-    /*
-    Method Name: initialize
-    Arguments: url URL and resourceBundle ResourceBundle
-    Returns: void
-
-    This method runs to initialize the page, but it is being used here to set up and display the book list in the table.
-    */
+    /**
+     * Runs to initialize the page, but it is being used here to set up and display the book list in the table.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));

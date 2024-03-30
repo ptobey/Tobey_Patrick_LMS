@@ -10,27 +10,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: Main
-
-This class contains the main method (start) of the LMS application and runs all LMS processes.
-This class starts, runs, and closes the RMS according to user inputs.
-
-The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
-Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
+/**
+ * This class contains the main method (start) of the LMS application and runs all LMS processes.
+ * It starts, runs, and closes the RMS according to user inputs.
+ * The goal of this LMS application is to allow users to remove, check in, check out, and see books in the RMS book collection.
+ * Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main extends Application {
-    /*
-    Method Name: start
-    Arguments: stage Stage
-    Returns: void
-
-    This method is the start point of the program and runs the necessary methods to initialize and start the LMS.
-    */
+    /**
+     * Is the starting point of the program and runs the necessary methods to initialize and start the LMS.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         DatabaseLogic.select();

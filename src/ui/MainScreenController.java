@@ -19,14 +19,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: MainScreenController
-
-This class handles all the controls for the main screen.
+/**
+ * This class handles all the controls for the main screen.
  */
 public class MainScreenController implements Initializable {
 
@@ -53,13 +47,9 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Book, String> tableTitle;
 
-    /*
-    Method Name: addButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method changes the screen to the add screen.
-    */
+    /**
+     * Changes the screen to the add screen.
+     */
     @FXML
     void addButtonClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-screen.fxml")));
@@ -67,13 +57,9 @@ public class MainScreenController implements Initializable {
         ScreenLogic.getStage().show();
     }
 
-    /*
-    Method Name: checkInOutButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method changes the screen to the check in/out screen.
-    */
+    /**
+     * Changes the screen to the check in/out screen.
+     */
     @FXML
     void checkInOutButtonClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("check-in-out-screen.fxml")));
@@ -81,13 +67,9 @@ public class MainScreenController implements Initializable {
         ScreenLogic.getStage().show();
     }
 
-    /*
-    Method Name: removeButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method changes the screen to the remove screen.
-    */
+    /**
+     * Changes the screen to the remove screen.
+     */
     @FXML
     void removeButtonClicked(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("remove-screen.fxml")));
@@ -95,13 +77,9 @@ public class MainScreenController implements Initializable {
         ScreenLogic.getStage().show();
     }
 
-    /*
-    Method Name: initialize
-    Arguments: url URL and resourceBundle ResourceBundle
-    Returns: void
-
-    This method runs to initialize the page, but it is being used here to set up and display the book list in the table.
-    */
+    /**
+     * Runs to initialize the page, but it is being used here to set up and display the book list in the table.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));

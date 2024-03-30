@@ -7,20 +7,16 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: LSTests
-
-This class tests the functionality of the LMS system.
+/**
+ * This class tests the functionality of the LMS system.
  */
 class LMSTests {
 
     static Book testBook;
 
-    //This method runs before all the tests and sets up their test data.
+    /**
+     * Runs before all the tests and sets up their test data.
+     */
     @org.junit.jupiter.api.BeforeAll
     static void setUp() {
         testBook = new Book("1", "Test1", "Patrick Tobey");
@@ -28,14 +24,18 @@ class LMSTests {
         BookLibrary.addBook(testBook);
     }
 
-    //This test asserts that books can be added to the book library.
+    /**
+     * Asserts that books can be added to the book library.
+     */
     @org.junit.jupiter.api.Test
     @DisplayName("Add main.Book Test")
     void addBook() {
         assertEquals(testBook, BookLibrary.getBookList().get(0));
     }
 
-    //This test asserts that books can be checked out properly.
+    /**
+     * Asserts that books can be checked out properly.
+     */
     @org.junit.jupiter.api.Test
     @DisplayName("Check Out main.Book Test")
     void checkOutBook() {
@@ -43,7 +43,9 @@ class LMSTests {
         assertEquals(LocalDate.now().plusWeeks(4), BookLibrary.getBookList().get(0).getDueDate());
     }
 
-    //This test asserts that books can be checked in properly.
+    /**
+     * Asserts that books can be checked in properly.
+     */
     @org.junit.jupiter.api.Test
     @DisplayName("Check In main.Book Test")
     void checkInBook() {
@@ -52,7 +54,9 @@ class LMSTests {
         assertNull(BookLibrary.getBookList().get(0).getDueDate());
     }
 
-    //This test asserts that books can be removed from the book library.
+    /**
+     * Asserts that books can be removed from the book library.
+     */
     @org.junit.jupiter.api.Test
     @DisplayName("Remove main.Book Test")
     void removeBook() {

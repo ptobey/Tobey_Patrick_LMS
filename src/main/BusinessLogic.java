@@ -9,26 +9,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: BusinessLogic
-
-This class contains all the business logic to add, remove, check in, and check out books.
+/**
+ * This class contains all the business logic to add, remove, check in, and check out books.
  */
 public class BusinessLogic {
     static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     static Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     static Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
 
-    /*
-     Method Name: initializeAlerts
-     Arguments: none
-     Returns: void
-
-     This method initializes all the alerts that the BusinessLogic class uses to communicate important information to the user.
+    /**
+     * Initializes all the alerts that the BusinessLogic class uses to communicate important information to the user.
      */
     public static void initializeAlerts() {
         errorAlert.setTitle("Alert Dialog");
@@ -41,13 +31,9 @@ public class BusinessLogic {
         informationAlert.setHeaderText("Warning!");
     }
 
-    /*
-     Method Name: addBooks
-     Arguments: path String
-     Returns: boolean
-
-     This method takes in a file path to a CSV file, and it creates new books with that file's CSV information.
-     It then adds the new books to the book list if there were no errors with any of the entries.
+    /**
+     * Takes in a file path to a CSV file, and it creates new books with that file's CSV information.
+     * Adds the new books to the book list if there were no errors with any of the entries.
      */
     public static boolean addBooks(String path) {
         int lineNumber = 0;
@@ -90,13 +76,9 @@ public class BusinessLogic {
         }
     }
 
-    /*
-     Method Name: removeBook
-     Arguments: input String, choice String, and listChanger ListCallback
-     Returns: boolean
-
-     This method removes a book that matches the provided input and choice type (Title or ID).
-     If there are multiple books that share a title with the book that is being removed, this method calls the listChanger callback and inputs the books.
+    /**
+     * Removes a book that matches the provided input and choice type (Title or ID).
+     * If there are multiple books that share a title with the book that is being removed, this method calls the listChanger callback and inputs the books.
      */
     public static boolean removeBook(String input, String choice, ListCallback listChanger)  {
         if(choice.equals("Title")) {
@@ -143,13 +125,9 @@ public class BusinessLogic {
         }
     }
 
-    /*
-     Method Name: checkOutBook
-     Arguments: input String, choice String, and listChanger ListCallback
-     Returns: boolean
-
-     This method checks out a book that matches the provided input and choice type (Title or ID).
-     If there are multiple books that share a title with the book that is being checked out, this method calls the listChanger callback and inputs the books.
+    /**
+     * Checks out a book that matches the provided input and choice type (Title or ID).
+     * If there are multiple books that share a title with the book that is being checked out, this method calls the listChanger callback and inputs the books.
      */
     public static boolean checkOutBook(String input, String choice, ListCallback listChanger) {
         ArrayList<Book> checkOutList = getBooksByTitle(input);
@@ -210,13 +188,9 @@ public class BusinessLogic {
         }
     }
 
-    /*
-     Method Name: checkInBook
-     Arguments: input String, choice String, and listChanger ListCallback
-     Returns: boolean
-
-     This method checks in a book that matches the provided input and choice type (Title or ID).
-     If there are multiple books that share a title with the book that is being checked in, this method calls the listChanger callback and inputs the books.
+    /**
+     * Checks in a book that matches the provided input and choice type (Title or ID).
+     * If there are multiple books that share a title with the book that is being checked in, this method calls the listChanger callback and inputs the books.
      */
     public static boolean checkInBook(String input, String choice, ListCallback listChanger) {
         ArrayList<Book> checkOutList = getBooksByTitle(input);
@@ -275,13 +249,9 @@ public class BusinessLogic {
         }
     }
 
-    /*
-    Method Name: getBooksByTitle
-    Arguments: title String
-    Returns: ArrayList<main.Book>
-
-    This method returns all books that have the same book title as the title argument.
-    */
+    /**
+     * Returns all books that have the same book title as the title argument.
+     */
     public static ArrayList<Book> getBooksByTitle(String title) {
         ArrayList<Book> list = new ArrayList<>();
 

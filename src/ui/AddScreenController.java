@@ -19,14 +19,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-/*
-Name: Patrick Tobey
-Course: Software Development 1
-Date 4/7/2024
-
-Class Name: AddScreenController
-
-This class handles all the controls for the add screen.
+/**
+ * This class handles all the controls for the add screen.
  */
 public class AddScreenController implements Initializable {
 
@@ -56,25 +50,17 @@ public class AddScreenController implements Initializable {
     @FXML
     private TableColumn<Book, String> tableTitle;
 
-    /*
-    Method Name: backButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method runs the method that changes the screen back to the main screen.
-    */
+    /**
+     * Runs the method that changes the screen back to the main screen.
+     */
     @FXML
     void backButtonClicked(ActionEvent event) throws IOException {
         ScreenLogic.changeToMain();
     }
 
-    /*
-    Method Name: fileChooserButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method prompts users to pick a file they want to add books from
-    */
+    /**
+     * Prompts users to pick a file they want to add books from
+     */
     @FXML
     void fileChooserButtonClicked(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -85,13 +71,9 @@ public class AddScreenController implements Initializable {
         }
     }
 
-    /*
-    Method Name: addBooksButtonClicked
-    Arguments: event ActionEvent
-    Returns: void
-
-    This method attempts to add the books from the selected file path to the LMS.
-    */
+    /**
+     * Attempts to add the books from the selected file path to the LMS.
+     */
     @FXML
     void addBooksButtonClicked(ActionEvent event) {
         if(BusinessLogic.addBooks(path.getText())) {
@@ -101,13 +83,9 @@ public class AddScreenController implements Initializable {
         }
     }
 
-    /*
-    Method Name: initialize
-    Arguments: url URL and resourceBundle ResourceBundle
-    Returns: void
-
-    This method runs to initialize the page, but it is being used here to set up and display the book list in the table.
-    */
+    /**
+     * Runs to initialize the page, but it is being used here to set up and display the book list in the table.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tableAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
