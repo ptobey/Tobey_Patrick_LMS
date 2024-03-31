@@ -76,26 +76,50 @@ public class Book {
         BookLibrary.addExistingId(id);
     }
 
+    /**
+     * Gets the book's ID.
+     * @return The book's ID.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Gets the book's title.
+     * @return The book's title.
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Gets the book's author.
+     * @return The book's author.
+     */
     public String getAuthor() {
         return this.author;
     }
 
+    /**
+     * Gets the book's genre.
+     * @return The book's genre.
+     */
     public String getGenre() {
         return this.genre;
     }
 
+    /**
+     * Gets the book's status.
+     * @return The book's status.
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Gets the book's due date.
+     * @return The book's due date.
+     */
     public LocalDate getDueDate() {
         return this.dueDate;
     }

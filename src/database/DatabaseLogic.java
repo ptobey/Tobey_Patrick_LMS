@@ -74,7 +74,7 @@ public class DatabaseLogic {
     /**
      * Deletes a record from the database depending on the input and choice argument selections.
      * @param input The input string that should match a record in the database.
-     * @param choice The choice of title or id to compare the input to.
+     * @param choice The choice of title or ID to compare the input to.
      */
     public static void delete(String input, String choice) {
         String query;
@@ -103,7 +103,7 @@ public class DatabaseLogic {
     /**
      * Updates a record's status and dueDate from the database, depending on the input and choice argument selections.
      * @param input The input string that should match a record in the database.
-     * @param choice The choice of title or id to compare the input to.
+     * @param choice The choice of title or ID to compare the input to.
      * @param status The new status to change the selected book to.
      * @param dueDate The new due date to change the selected book to.
      */

@@ -14,16 +14,25 @@ import java.util.Objects;
 public class ScreenLogic {
     private static Stage primaryStage;
 
+    /**
+     * Sets the stage for the application to use.
+     * @param stage The application's stage.
+     */
     public static void setStage(Stage stage) {
         primaryStage = stage;
     }
 
+    /**
+     * Gets the application's stage
+     * @return The application's stage.
+     */
     public static Stage getStage() {
         return primaryStage;
     }
 
     /**
      * Changes the screen back to the main screen.
+     * @exception IOException This exception happens if the fxml file does not exist.
      */
     public static void changeToMain() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ScreenLogic.class.getResource("main-screen.fxml")));

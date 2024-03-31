@@ -21,6 +21,10 @@ public class BookLibrary {
         return ++idCounter;
     }
 
+    /**
+     * Gets the existing ID list.
+     * @return The existing ID list.
+     */
     public static Set<String> getExistingIds() {
         return existingIds;
     }
@@ -41,6 +45,10 @@ public class BookLibrary {
         existingIds.remove(id);
     }
 
+    /**
+     * Gets the book list.
+     * @return The book list.
+     */
     public static ArrayList<Book> getBookList() {
         return bookList;
     }
@@ -53,6 +61,10 @@ public class BookLibrary {
         bookList.add(book);
     }
 
+    /**
+     * Sets the book list.
+     * @param books The book list to set to.
+     */
     public static void setBookList(ArrayList<Book> books) {
         bookList = books;
     }
