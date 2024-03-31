@@ -22,9 +22,6 @@ import main.BusinessLogic;
  * This class handles all the controls for the remove screen.
  */
 public class RemoveScreenController implements Initializable {
-    /**
-     * The default constructor that should never be used.
-     */
     private RemoveScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());

@@ -17,9 +17,6 @@ import java.util.*;
  * Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main extends Application {
-    /**
-     * The default constructor that should never be used.
-     */
     private Main() {}
 
     /**

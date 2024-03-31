@@ -9,9 +9,6 @@ import java.util.*;
  * The idCounter getter also increments it.
  */
 public class BookLibrary {
-    /**
-     * The default constructor that should never be used.
-     */
     private BookLibrary() {}
 
     private static ArrayList<Book> bookList = new ArrayList<>();

@@ -12,9 +12,6 @@ import java.util.Objects;
  * It also stores the primaryStage set in the main method so all the screens can use it to change screens.
  */
 public class ScreenLogic {
-    /**
-     * The default constructor that should never be used.
-     */
     private ScreenLogic() {}
 
     private static Stage primaryStage;

@@ -22,9 +22,6 @@ import java.util.ResourceBundle;
  * This class handles all the controls for the check in/out screen.
  */
 public class CheckInOutScreenController implements Initializable {
-    /**
-     * The default constructor that should never be used.
-     */
     private CheckInOutScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());

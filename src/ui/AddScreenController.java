@@ -23,9 +23,6 @@ import java.util.ResourceBundle;
  * This class handles all the controls for the add screen.
  */
 public class AddScreenController implements Initializable {
-    /**
-     * The default constructor that should never be used.
-     */
     private AddScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());

@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class tests the functionality of the LMS system.
  */
 class LMSTests {
-
     static Book testBook;
 
     /**
