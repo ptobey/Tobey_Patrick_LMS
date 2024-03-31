@@ -13,6 +13,11 @@ import java.util.Scanner;
  * This class contains all the business logic to add, remove, check in, and check out books.
  */
 public class BusinessLogic {
+    /**
+     * The default constructor that should never be used.
+     */
+    private BusinessLogic() {}
+
     static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     static Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
     static Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);

@@ -9,6 +9,11 @@ import java.util.ArrayList;
  * This class handles all database interactions.
  */
 public class DatabaseLogic {
+    /**
+     * The default constructor that should never be used.
+     */
+    private DatabaseLogic() {}
+
     static String url = "jdbc:sqlite:C:/Users/patmi/IdeaProjects/Tobey_Patrick_LMS/src/database/lms.db";
 
     /**

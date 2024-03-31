@@ -23,6 +23,10 @@ import java.util.ResourceBundle;
  * This class handles all the controls for the main screen.
  */
 public class MainScreenController implements Initializable {
+    /**
+     * The default constructor that should never be used.
+     */
+    private MainScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
 
