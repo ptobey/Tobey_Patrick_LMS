@@ -34,6 +34,8 @@ public class BusinessLogic {
     /**
      * Takes in a file path to a CSV file, and it creates new books with that file's CSV information.
      * Adds the new books to the book list if there were no errors with any of the entries.
+     * @param path The path of the CSV file that has the new books to add.
+     * @return The status of if the method finished successfully.
      */
     public static boolean addBooks(String path) {
         int lineNumber = 0;
@@ -79,6 +81,10 @@ public class BusinessLogic {
     /**
      * Removes a book that matches the provided input and choice type (Title or ID).
      * If there are multiple books that share a title with the book that is being removed, this method calls the listChanger callback and inputs the books.
+     * @param input The input string that should match a record in the book list.
+     * @param choice The choice of title or id to compare the input to.
+     * @param listChanger The callback to change the shown book list to a certain set of books if needed.
+     * @return The status of if the method finished successfully.
      */
     public static boolean removeBook(String input, String choice, ListCallback listChanger)  {
         if(choice.equals("Title")) {
@@ -128,6 +134,10 @@ public class BusinessLogic {
     /**
      * Checks out a book that matches the provided input and choice type (Title or ID).
      * If there are multiple books that share a title with the book that is being checked out, this method calls the listChanger callback and inputs the books.
+     * @param input The input string that should match a record in the book list.
+     * @param choice The choice of title or id to compare the input to.
+     * @param listChanger The callback to change the shown book list to a certain set of books if needed.
+     * @return The status of if the method finished successfully.
      */
     public static boolean checkOutBook(String input, String choice, ListCallback listChanger) {
         ArrayList<Book> checkOutList = getBooksByTitle(input);
@@ -191,6 +201,10 @@ public class BusinessLogic {
     /**
      * Checks in a book that matches the provided input and choice type (Title or ID).
      * If there are multiple books that share a title with the book that is being checked in, this method calls the listChanger callback and inputs the books.
+     * @param input The input string that should match a record in the book list.
+     * @param choice The choice of title or id to compare the input to.
+     * @param listChanger The callback to change the shown book list to a certain set of books if needed.
+     * @return The status of if the method finished successfully.
      */
     public static boolean checkInBook(String input, String choice, ListCallback listChanger) {
         ArrayList<Book> checkOutList = getBooksByTitle(input);
@@ -251,6 +265,8 @@ public class BusinessLogic {
 
     /**
      * Returns all books that have the same book title as the title argument.
+     * @param title The title of the books to find.
+     * @return All the books that match with selected title.
      */
     public static ArrayList<Book> getBooksByTitle(String title) {
         ArrayList<Book> list = new ArrayList<>();

@@ -15,6 +15,7 @@ public class BookLibrary {
 
     /**
      * Increments the ID counter and returns the new integer.
+     * @return The incremented id value.
      */
     public static int incrementIdCounter() {
         return ++idCounter;
@@ -26,6 +27,7 @@ public class BookLibrary {
 
     /**
      * Adds an ID to the existing IDs list.
+     * @param id The new ID to add to the existing ID list.
      */
     public static void addExistingId(String id) {
         existingIds.add(id);
@@ -33,6 +35,7 @@ public class BookLibrary {
 
     /**
      * Removes an ID from the existing IDs list.
+     * @param id The ID to remove from the existing ID list.
      */
     public static void removeExistingId(String id) {
         existingIds.remove(id);
@@ -44,6 +47,7 @@ public class BookLibrary {
 
     /**
      * Adds a book to the book list.
+     * @param book The book to add to the book list.
      */
     public static void addBook(Book book) {
         bookList.add(book);
@@ -55,6 +59,7 @@ public class BookLibrary {
 
     /**
      * Removes a book from the book list.
+     * @param book The book to remove from the book list.
      */
     public static void removeBook(Book book) {
         bookList.remove(book);

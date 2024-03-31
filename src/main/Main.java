@@ -19,6 +19,8 @@ import java.util.*;
 public class Main extends Application {
     /**
      * Is the starting point of the program and runs the necessary methods to initialize and start the LMS.
+     * @param stage
+     * The stage of the application's UI.
      */
     @Override
     public void start(Stage stage) throws IOException {

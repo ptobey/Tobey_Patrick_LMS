@@ -49,6 +49,7 @@ public class DatabaseLogic {
 
     /**
      * Inserts all the books from the bookList argument into the database.
+     * @param bookList The list of books to insert into the database.
      */
     public static void insert(ArrayList<Book> bookList) {
         String query = "INSERT INTO Books (id, title, author, genre, status, dueDate) VALUES (?, ?, ?, ?, 'Checked In', null);";
@@ -72,6 +73,8 @@ public class DatabaseLogic {
 
     /**
      * Deletes a record from the database depending on the input and choice argument selections.
+     * @param input The input string that should match a record in the database.
+     * @param choice The choice of title or id to compare the input to.
      */
     public static void delete(String input, String choice) {
         String query;
@@ -99,6 +102,10 @@ public class DatabaseLogic {
 
     /**
      * Updates a record's status and dueDate from the database, depending on the input and choice argument selections.
+     * @param input The input string that should match a record in the database.
+     * @param choice The choice of title or id to compare the input to.
+     * @param status The new status to change the selected book to.
+     * @param dueDate The new due date to change the selected book to.
      */
     public static void update(String input, String choice, String status, LocalDate dueDate) {
         String query;

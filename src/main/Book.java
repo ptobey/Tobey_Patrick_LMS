@@ -18,6 +18,9 @@ public class Book {
 
     /**
      * The constructor used if an ID needs to be generated for the book
+     * @param title The title of the new book.
+     * @param author The author of the new book.
+     * @param genre The genre of the new book.
      */
     public Book(String title, String author, String genre) {
         String newId;
@@ -39,6 +42,10 @@ public class Book {
 
     /**
      * The constructor used if an ID is already created for the book
+     * @param id The id of the new book.
+     * @param title The title of the new book.
+     * @param author The author of the new book.
+     * @param genre The genre of the new book.
      */
     public Book(String id, String title, String author, String genre) {
         this.title = title;
@@ -52,6 +59,12 @@ public class Book {
 
     /**
      * The constructor used if everything is already created for the book
+     * @param id The id of the new book.
+     * @param title The title of the new book.
+     * @param author The author of the new book.
+     * @param genre The genre of the new book.
+     * @param status The status of the new book.
+     * @param dueDate The due date of the new book.
      */
     public Book(String id, String title, String author, String genre, String status, LocalDate dueDate) {
         this.title = title;
