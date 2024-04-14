@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * This class handles all the controls for the check in/out screen.
  */
 public class CheckInOutScreenController implements Initializable {
-    private CheckInOutScreenController() {}
+    public CheckInOutScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
 

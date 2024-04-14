@@ -22,7 +22,7 @@ import main.BusinessLogic;
  * This class handles all the controls for the remove screen.
  */
 public class RemoveScreenController implements Initializable {
-    private RemoveScreenController() {}
+    public RemoveScreenController() {}
 
     ObservableList<Book> bookList = FXCollections.observableArrayList(BookLibrary.getBookList());
     ObservableList<String> choiceList = FXCollections.observableArrayList("ID", "Title");

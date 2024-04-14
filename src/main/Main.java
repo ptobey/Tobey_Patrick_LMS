@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.*;
+import java.net.URL;
 
 /**
  * This class contains the main method (start) of the LMS application and runs all LMS processes.
@@ -17,7 +17,7 @@ import java.util.*;
  * Users can also add books by providing a CSV file that contains a positive integer ID, book title, and book on each line.
  */
 public class Main extends Application {
-    private Main() {}
+    public Main() {}
 
     /**
      * Is the starting point of the program and runs the necessary methods to initialize and start the LMS.
@@ -28,7 +28,13 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         DatabaseLogic.select();
         ScreenLogic.setStage(stage);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../ui/main-screen.fxml")));
+
+        FXMLLoader loader = new FXMLLoader();
+        URL url = getClass().getResource("/ui/main-screen.fxml");
+
+        assert url != null;
+        Parent root = loader.load(url.openStream());
+
         stage.setScene(new Scene(root));
         BusinessLogic.initializeAlerts();
         stage.setTitle("Patrick's LMS");
